@@ -1,0 +1,6 @@
+{
+  "python.analysis.extraPaths": [
+    "./arrow/dev/archery/archery/utils",
+    "./ECHO_modules"
+  ]
+}
