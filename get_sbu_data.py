@@ -7,6 +7,8 @@ from streamlit_folium import st_folium
 from ECHO_modules.get_data import get_echo_data # Import the get_echo_data function, which is the function that does the work of retrieving data from the SBU database
 from ECHO_modules.get_data import get_spatial_data # Import this function, which will help us get county boundaries
 from ECHO_modules.geographies import spatial_tables, fips, region_field, states # Import for mapping purposes
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 # Styles for States ("other") and selected regions (e.g. Zip Codes) - "this"
 map_style = {'this': {'fillColor': '#0099ff', 'color': '#182799', "weight": 1},
@@ -19,8 +21,8 @@ selected_state = st.selectbox(
 # Get list of counties for selected state
 url = "https://raw.githubusercontent.com/edgi-govdata-archiving/"
 url += "ECHO_modules/packaging/data/state_counties_corrected.csv"
-df = pd.read_csv( url )
-counties = df[df['FAC_STATE'] == selected_state]['County']
+all_counties = pd.read_csv( url )
+counties = all_counties[all_counties['FAC_STATE'] == selected_state]['County']
 counties = counties.unique()
 
 selected_county = st.selectbox(
@@ -34,14 +36,13 @@ def format_county(selected_county):
     Returns the formatted county string from uppercase to lowercase and capitalized
     Example: format_county('SAN FRANCISCO') returns 'San Francisco'
     '''
-    format_county = ''
+    res = ''
     county_words = selected_county.split(' ')
     for word in county_words:
-        format_county += word.lower().capitalize() + ' '
-    format_county = format_county[:-1]
-    return format_county
+        res += word.lower().capitalize() + ' '
+    return res[:-1]
 
-format_county = format_county(selected_county)
+county_name = format_county(selected_county)
 
 
 st.header('Get Facilities in Selected County')
@@ -64,14 +65,16 @@ c = c[:-1] + ")"
 sql = 'select * from "ECHO_EXPORTER" where "FAC_COUNTY" in ' + c + ' and "FAC_STATE" = \'' + selected_state + '\'' # "ECHO_EXPORTER" contains basic info about all regulated industrial facilities, including location
 print(sql)
 fac = get_echo_data(sql)
+# display facilities in county
 fac
 
 
 st.header('Get County Boundaries')
 # This one gets a little complicated because of how the data are structured and the fact that a county name may not be unique (e.g. there are multiple Cedar Counties in the US
 statefp = fips[selected_state] # Get state's code
-sql = 'select * from "tl_2020_us_county" where "name" = \''+format_county +'\' and "statefp" = \''+str(statefp)+'\'' # Select specific county depending on state code
-county, state = get_spatial_data("County", [selected_state], spatial_tables, fips, format_county)
+sql = 'select * from "tl_2020_us_county" where "name" = \''+county_name +'\' and "statefp" = \''+str(statefp)+'\'' # Select specific county depending on state code
+county, state = get_spatial_data("County", [selected_state], spatial_tables, fips, county_name)
+# display county boundaries
 county
 
 
@@ -159,5 +162,6 @@ baseline = int(str(county["geoid"][0]) + "0000000") # Find the county's geoid an
 next = baseline + 10000000 # Find the next county's geoid - we don't want any of this so it's the limit of our query
 sql = 'SELECT * from "EJSCREEN_2021_USPR" where "ID" between '+str(baseline)+' and '+str(next)+''
 # The above query should give us all the block groups in the county, nothing more nothing less
-data = get_echo_data(sql)
-data
+justice_data = get_echo_data(sql)
+# display environmental justice data
+justice_data
