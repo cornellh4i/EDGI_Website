@@ -33,7 +33,8 @@ st.write('You selected:', selected_county, ", ", selected_state)
 
 def format_county(selected_county):
     '''
-    Returns the formatted county string from uppercase to lowercase and capitalized
+    Returns the county with the first letter of each word capitalized.
+
     Example: format_county('SAN FRANCISCO') returns 'San Francisco'
     '''
     res = ''
@@ -63,7 +64,6 @@ for county in counties:
   c += "\'"+county+"\',"
 c = c[:-1] + ")"
 sql = 'select * from "ECHO_EXPORTER" where "FAC_COUNTY" in ' + c + ' and "FAC_STATE" = \'' + selected_state + '\'' # "ECHO_EXPORTER" contains basic info about all regulated industrial facilities, including location
-print(sql)
 fac = get_echo_data(sql)
 # display facilities in county
 fac
@@ -107,6 +107,7 @@ def marker_text( row, no_text ):
             text += " - <p><a href='"+row["DFR_URL"]
             text += "' target='_blank'>Link to ECHO detailed report</a></p>" 
     return text
+
 
 def bivariate_map(regions, points, bounds=None, no_text=False):
     '''
