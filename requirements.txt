@@ -1,0 +1,10 @@
+streamlit
+pandas
+geopandas
+folium
+streamlit-folium
+seaborn
+numpy
+plotly.express
+altair
+git+https://github.com/edgi-govdata-archiving/ECHO_modules
