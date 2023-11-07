@@ -7,6 +7,8 @@ import math
 import geopandas
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
+import geojson
+import json
 
 # # these are the CSV files of the capitals and countries, both located in data
 # states = pd.read_csv(
@@ -58,6 +60,25 @@ counties = geopandas.read_file(
     driver="GeoJSON",
 )
 
+# st.write(type(counties['feature']))
+
+def convert_state_fp(code):
+    '''
+    Returns the state name represented by the two-digit American National Standards Institute (ANSI) Code
+    '''
+    states = {"01" : "Alabama", "02" : "Alaska", "04" : "Arizona", "05" : "Arkansas", "06": "California", "08": "Colorado", "09" : "Connecticut", "10" : "Delaware", "11" : "District of Columbia", "12": "Florida", "13": "Georgia", "15": "Hawaii", "16" : "Idaho", "17" : "Illinois", "18" : "Indiana", "19" : "Iowa", "20" : "Kansas", "21" : "Kentucky", "22" : "Louisiana", "23" : "Maine", "24" : "Maryland", "25" : "Massachusetts", "26" : "Michigan", "27": "Minnesota", "28": "Mississippi", "29" : "Missouri", "30" : "Montana", "31" : "Nebraska", "32" : "Nevada", "33" : "New Hampshire", "34" : "New Jersey", "35" : "New Mexico", "36" : "New York", "37" : "North Carolina", "38" : "North Dakota", "39": "Ohio", "40": "Oklahoma", "41" : "Oregon", "42": "Pennsylvania", "44": "Rhode Island", "45" : "South Carolina", "46": "South Dakota", "47": "Tennessee", "48": "Texas", "49" : "Utah", "50": "Vermont", "51": "Virginia", "53": "Washington", "54": "West Virginia", "55": "Wisconsin", "56":"Wyoming", "72":"Puerto Rico"}
+
+    return states[code]
+
+f = open("data\counties.geojson",)
+data = json.load(f)
+
+# Add state names to each county name in counties.geojson
+for feature in data["features"]:
+    feature['properties']['NAME'] = feature['properties']['NAME'] + convert_state_fp(feature['properties']['STATEFP'])
+
+f.close()
+
 m = folium.Map(location=[38, -97], zoom_start=4)
 
 
@@ -75,18 +96,20 @@ stategeo = folium.GeoJson(
     name="US States",
     style_function=style_function,
     tooltip=folium.GeoJsonTooltip(
-        fields=["name"], aliases=["State"], localize=True
+        fields=["name"], aliases=["State: "], localize=True
     ),
 ).add_to(m)
+
 
 countygeo = folium.GeoJson(
     counties,
     name="US Counties",
     style_function=style_function,
     tooltip=folium.GeoJsonTooltip(
-        fields=["NAME"], aliases=["County"], localize=True
+        fields=["NAME"], aliases=["County: "], localize=True
     ),
 ).add_to(m)
+
 
 statesearch = Search(
     layer=stategeo,
@@ -97,6 +120,7 @@ statesearch = Search(
     weight=3,
 ).add_to(m)
 
+
 countysearch = Search(
     layer=countygeo,
     geom_type="Polygon",
@@ -105,6 +129,7 @@ countysearch = Search(
     search_label="NAME",
     weight=3,
 ).add_to(m)
+
 
 folium.LayerControl().add_to(m)
 #colormap.add_to(m)

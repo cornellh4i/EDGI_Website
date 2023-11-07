@@ -8,5 +8,6 @@ folium
 streamlit-folium
 plotly.express
 geopandas
+geojson
 seaborn
 git+https://github.com/edgi-govdata-archiving/ECHO_modules
