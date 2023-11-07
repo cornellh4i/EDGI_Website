@@ -4,8 +4,8 @@ import numpy as np
 import folium
 from folium.plugins import FastMarkerCluster
 from streamlit_folium import st_folium
-from ECHO_modules.get_data import get_echo_data # Import the get_echo_data function, which is the function that does the work of retrieving data from the SBU database
-from ECHO_modules.get_data import get_spatial_data # Import this function, which will help us get county boundaries
+from ECHO_modules.get_data import get_echo_data # This function does the work of retrieving data from the SBU database
+from ECHO_modules.get_data import get_spatial_data # This function will help us get county boundaries
 from ECHO_modules.geographies import spatial_tables, fips, region_field, states # Import for mapping purposes
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -48,13 +48,7 @@ county_name = format_county(selected_county)
 
 
 st.header('Get Facilities in Selected County')
-#sql = 'select * from "ECHO_EXPORTER" where "FAC_COUNTY" = \'TOMPKINS\' and "FAC_STATE" = \'NY\'' # "ECHO_EXPORTER" contains basic info about all regulated industrial facilities, including location
-#fac = get_echo_data(sql)
-"""Note: because of errors in the EPA's own data, the above query may not always return accurate results.
-For instance, sometimes county names are listed as just "Tompkins"; sometimes they are listed as "Tompkins County".
-A more robust version utilizes another approach. See below:
-"""
-# Get county names based on Steve's work. If we know our county of interest is Tompkins, NY, we can search for other names it may be listed under
+# Get county names based on Steve's work.
 counties = pd.read_csv("https://raw.githubusercontent.com/edgi-govdata-archiving/ECHO_modules/main/data/state_counties_corrected.csv") # Get a county name lookup
 counties = counties.groupby(by=["FAC_STATE", "County", "FAC_COUNTY"]).count() # Restructure the data
 counties = counties.iloc[(counties.index.get_level_values('County') == selected_county) & (counties.index.get_level_values('FAC_STATE') == selected_state)].reset_index() # Search for COUNTY, STATE
@@ -127,7 +121,6 @@ def bivariate_map(regions, points, bounds=None, no_text=False):
 
     # Show the points
     ## Create the Marker Cluster array
-    #kwargs={"disableClusteringAtZoom": 10, "showCoverageOnHover": False}
     mc = FastMarkerCluster("")
  
     # Add a clickable marker for each facility
