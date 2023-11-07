@@ -76,6 +76,8 @@ county
 def marker_text( row, no_text ):
     '''
     Create a string with information about the facility or program instance.
+    
+    Returns the text (a str) to attach to the marker
 
     Parameters
     ----------
@@ -83,11 +85,6 @@ def marker_text( row, no_text ):
         Expected to contain FAC_NAME and DFR_URL fields from ECHO_EXPORTER
     no_text : Boolean
         If True, don't put any text with the markers, which reduces chance of errors 
-
-    Returns
-    -------
-    str
-        The text to attach to the marker
     '''
 
     text = ""
@@ -106,9 +103,12 @@ def marker_text( row, no_text ):
 
 def bivariate_map(regions, points, bounds=None, no_text=False):
     '''
-    show the map of region(s) (e.g. zip codes) and points (e.g. facilities within the regions)
-    create the map using a library called Folium (https://github.com/python-visualization/folium)
-    bounds can be preset if necessary
+    Show the map of region(s) (e.g. zip codes) and points (e.g. facilities within the regions)
+
+    Create the map using a library called Folium (https://github.com/python-visualization/folium)
+
+    Bounds can be preset if necessary
+
     no_text errors can be managed
     '''
     m = folium.Map()  
