@@ -21,7 +21,7 @@ st.title('Example: Controlling sidebar programmatically')
 st.sidebar.markdown(
     'This is an example Streamlit app to show how to expand and collapse the sidebar programmatically.')
 
-button = st.button('Open &#xa; Guide')
+button = st.button('Open \n Guide')
 
 # Toggle sidebar state between 'expanded' and 'collapsed'.
 if button:
