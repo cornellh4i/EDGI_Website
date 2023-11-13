@@ -7,4 +7,5 @@ seaborn
 numpy
 plotly.express
 altair
+requests
 git+https://github.com/edgi-govdata-archiving/ECHO_modules
