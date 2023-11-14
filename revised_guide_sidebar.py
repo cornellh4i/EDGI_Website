@@ -29,7 +29,6 @@ iframe {
     height: 600px;
     border: none;
     position: relative;
-    z-index: 1;
 }
 </style>
 """
@@ -44,7 +43,6 @@ if 'button' not in st.session_state:
 
 # Helper function to open/close the sidebar when the user presses the button
 
-
 def click_button():
     st.session_state.button = not st.session_state.button
 
@@ -57,18 +55,17 @@ div.stButton > button:first-child {
     border: #3A7568;
     background: white;
     border-radius: 50%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     border: 2px solid #3A7568;
     width: 70px;
     height: 70px; 
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    z-index: 1;
 }
 </style>""", unsafe_allow_html=True)
-st.button('Open Guide', on_click=click_button,)
+st.button('Open Guide', on_click=click_button)
 
 
 # Function to display words to the left and circles with text to the right
