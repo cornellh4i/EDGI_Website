@@ -173,36 +173,27 @@ def highlightTabInfo():
     st.markdown(html_content, unsafe_allow_html=True)
 
 def highlightTabData():
-  # Define the colors and words
-  colors = ["#8A6E95", "#89BAB9", "#E4AA7A"]
-  words = ["Bush", "Obama", "Trump"]
-
-  # Create a horizontal layout with colored boxes to the left of words
+  # Use st.markdown to render the HTML content
   st.markdown(
     """
-    <style>
-      .horizontal-layout {
-        display: inline-flex;  
-        align-items: center;
-      }
-      .color-box {
-        width: 24px;
-        height: 24px;
-        margin-right: 10px;
-      }
-    </style>
+    <div style="display: flex; align-items: center;">
+        <div>
+            <h1 style="margin-right: 10px;">Key: President</h1>
+        </div>
+        <div style="margin-left: auto; display: flex; align-items: center;">
+            <div style="background-color: #8A6E95; width: 20px; height: 20px; margin: 0;"></div>
+            <text style="margin: 5px; font-size: 20px;">Bush</text>
+            <div style="background-color: #89BAB9; width: 20px; height: 20px; margin: 0;"></div>
+            <text style="margin: 5px; font-size: 20px;">Obama</text>
+            <div style="background-color: #E4AA7A; width: 20px; height: 20px; margin: 0;"></div>
+            <text style="margin: 5px; font-size: 20px;">Trump</text>
+        </div>
+    </div>
     """,
     unsafe_allow_html=True
-  )
+)
 
-  for color, word in zip(colors, words):
-    st.markdown(
-      f'<div class="horizontal-layout">'
-      f'   <div class="color-box" style="background-color: {color};"></div>'
-      f'   {word}'
-      f'</div>',
-      unsafe_allow_html=True,
-  )
+
   
   st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>", unsafe_allow_html=True)
   # this is a filler graph
@@ -245,7 +236,7 @@ def comparisonTabData():
   # this is where graph for CAA Violators
   chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
   st.bar_chart(chart_data)
-  st.markdown("<h2 style='text-align: center'>CWA Violators</h2>", unsafe_allow_html=True)
+  st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2022</h2>", unsafe_allow_html=True)
   # this is where graph for CWA Violators
   chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
   st.bar_chart(chart_data)
