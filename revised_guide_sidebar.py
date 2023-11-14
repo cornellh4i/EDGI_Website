@@ -1,6 +1,7 @@
 import streamlit as st
 import folium
 import pandas as pd
+import numpy as np
 import streamlit as st
 from streamlit_folium import folium_static
 
@@ -17,6 +18,11 @@ map = folium.Map(location=[0.0, 0.0], zoom_start=2)
 # Define the HTML template with CSS to make the map full-screen
 map_html = """
 <style>
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
 iframe {
     width: 100%;
     min-height: 400px;
@@ -24,7 +30,6 @@ iframe {
 }
 </style>
 """
-# Display the HTML template with the CSS to make the map full-screen using st.markdown
 st.markdown(map_html, unsafe_allow_html=True)
 
 # Display the map using st_folium
@@ -57,15 +62,32 @@ div.stButton > button:first-child {
 </style>""", unsafe_allow_html=True)
 st.button('Open Guide', on_click=click_button,)
 
-# TODO: need to add circles that can take on number
+
+# Function to display words to the left and circles with text to the right
+def display_words_and_circles(word,number):
+  st.write(f'<div style="display: flex; align-items: center;">\
+    <div style="margin-right: 20px;"><h1>{word}</h1></div>\
+    <div style="\
+    width: 60px; \
+    height: 60px; \
+    background-color: #808080; \
+    border-radius: 50%; \
+    display: flex; \
+    align-items: center; \
+    justify-content: center; \
+    color: white; \
+    font-weight: bold; \
+    margin-left: auto; \
+    font-size: 20px;">{number}</div>\
+  </div>', unsafe_allow_html=True)
+
 def violations(per_fac, per_insp, per_enfo):
   with st.container():
-    st.header("Violations per facility")
+    display_words_and_circles("Violations per facility", per_fac)
   with st.container():
-    st.header("Violations per inspection")
+    display_words_and_circles("Violations per inspection", per_insp)
   with st.container():
-    st.header("Violations per enforcement")
-
+    display_words_and_circles("Violations per enforcement", per_enfo)
 
 def starter_top_info():
   st.title("How to use")
@@ -97,7 +119,7 @@ def starter_top_info():
 
 def gradingTabData():
   CAA, CWA, RCRA = st.tabs(["CAA", "CWA", "RCRA"])
-  with CAA: 
+  with CAA:
     violations(17, 19,18) #test
   with CWA:
     violations(1, 2, 3) #test
@@ -150,6 +172,51 @@ def highlightTabInfo():
     # Use st.markdown to render the HTML content
     st.markdown(html_content, unsafe_allow_html=True)
 
+def highlightTabData():
+  # Define the colors and words
+  colors = ["#8A6E95", "#89BAB9", "#E4AA7A"]
+  words = ["Bush", "Obama", "Trump"]
+
+  # Create a horizontal layout with colored boxes to the left of words
+  st.markdown(
+    """
+    <style>
+      .horizontal-layout {
+        display: inline-flex;  
+        align-items: center;
+      }
+      .color-box {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+      }
+    </style>
+    """,
+    unsafe_allow_html=True
+  )
+
+  for color, word in zip(colors, words):
+    st.markdown(
+      f'<div class="horizontal-layout">'
+      f'   <div class="color-box" style="background-color: {color};"></div>'
+      f'   {word}'
+      f'</div>',
+      unsafe_allow_html=True,
+  )
+  
+  st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>", unsafe_allow_html=True)
+  # this is a filler graph
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+  st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Potentially incomplete data<subtitle>", unsafe_allow_html=True)
+  # this is a filler graph
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+  st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly incomplete data<subtitle>", unsafe_allow_html=True)
+  # this is a filler graph
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+
 def comparisonTabInfo():
   # Define the CSS style for the gray rectangle
     gray_rectangle_style = """
@@ -173,13 +240,59 @@ def comparisonTabInfo():
     # Use st.markdown to render the HTML content
     st.markdown(html_content, unsafe_allow_html=True)
 
-# Bottom part of the tabs 
+def comparisonTabData():
+  st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2022)</h2>", unsafe_allow_html=True)
+  # this is where graph for CAA Violators
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+  st.markdown("<h2 style='text-align: center'>CWA Violators</h2>", unsafe_allow_html=True)
+  # this is where graph for CWA Violators
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+
+def non_complianceTabInfo():
+  # Define the CSS style for the gray rectangle
+    gray_rectangle_style = """
+        background-color: #e6e6e6;
+        padding: 10px;
+        border-radius: 5px;
+        color: black;
+    """
+
+    # Define the HTML content as a string
+    html_content = f"""
+    <div style="{gray_rectangle_style}">
+        <ul>
+            <li>Noncompliance is ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+            <li>These figures show the ten facilities in this state with the worst history of environmental compliance based on their number of noncompliant quarters in the past 3 years (not necessarily consecutive). Click on a facility name to view its ECHO report.</li>
+        </ul>
+    </div>
+    """
+
+    # Use st.markdown to render the HTML content
+    st.markdown(html_content, unsafe_allow_html=True)
+
+def non_complianceTabData(): 
+  st.markdown("<h2 style='text-align: center'>CAA Violators</h2>", unsafe_allow_html=True)
+  # this is where graph for CAA Violators
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+  st.markdown("<h2 style='text-align: center'>CWA Violators</h2>", unsafe_allow_html=True)
+  # this is where graph for CWA Violators
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+  st.markdown("<h2 style='text-align: center'>RCRA Violators</h>", unsafe_allow_html=True)
+  # this is where graph for RCRA Violators
+  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+  st.bar_chart(chart_data)
+   
+# Bottom info for the tabs 
 def bottom_info():
   st.header("") # creates a gap
 
   # Define a CSS style for the gray rectangle with curved edges
   gray_rectangle_style = """
-    background-color: #EFEFEF;
+    background-color: #e6e6e6;
     padding: 10px;
     border-radius: 5px;
     color: black;
@@ -205,9 +318,8 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0 , RCRA_value=0
         starter_top_info()
       else:
         st.title(county)
-        st.header(state)
-        st.header("")# Add an empty line to create space
-        #TODO: create a function that pulls data given the country and state
+        st.subheader(state)
+        st.header("") # Add an empty line to create space
         st.header("Operating Facilities")
         st.subheader("CAA: " + str(CAA_value))
         st.subheader("CWA: " + str(CWA_value))
@@ -215,30 +327,28 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0 , RCRA_value=0
         with st.container():
           grading, highlight, comparison, non_compliance = st.tabs(["Grading", "Highlights", "In Comparison", "Recent Non-Compliance"])
           with grading:
-            #TODO: need a function here that grabs the information to be shown & need the links 
             gradingTabData()
             bottom_info()
             gradingTabInfo()
 
           with highlight:
-            #TODO: make a highlightTabData() for the graphs
+            highlightTabData() 
             bottom_info()
             highlightTabInfo()
 
-          with comparison:
-            #TODO: make a comparisonTabData() for the graphs
+          with comparison: 
+            comparisonTabData()
             bottom_info()
             comparisonTabInfo()
-            
 
           with non_compliance:
-            #TODO: make a complianceTabData() for the graphs
+            non_complianceTabData()
             bottom_info()
-
+            non_complianceTabInfo()
 
 # Information that is shown when button is clicked
 if st.session_state.button:
     # User opens the sidebar
     with st.sidebar:
       #fillSideBar() #starter
-      fillSideBar("hi","test", 72, 73,74)
+      fillSideBar("Niagara County","New York", 72, 73,74)
