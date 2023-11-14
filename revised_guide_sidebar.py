@@ -6,12 +6,12 @@ import streamlit as st
 from streamlit_folium import folium_static
 
 
+# Streamlit set_page_config
+st.set_page_config(layout="wide")
+
 # Initialize a session state variable that tracks the sidebar state
 if 'sidebar_state' not in st.session_state:
     st.session_state.sidebar_state = 'expanded'
-
-# Streamlit set_page_config
-st.set_page_config(layout="wide")
 
 # Create a Folium map that is zoomed-in a bit
 map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
@@ -19,11 +19,10 @@ map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
 # Define the HTML template with CSS to make the map full-screen
 map_html = """
 <style>
-body {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
+.main > div {
+            padding-left: 0rem;
+            padding-right: 0rem;
+        }
 iframe {
     width: 100%;
     min-height: 400px;
@@ -321,9 +320,9 @@ def bottom_info():
 
     # text for the bottom of the page
     text = """The reliability of data in figures throughout this report is 
-  indicated by the figure subtitle and degree of transparency. See the Data 
-  Limitations section to view the transparency-coding table. Access state and 
-  congressional district data here."""
+    indicated by the figure subtitle and degree of transparency. See the Data 
+    Limitations section to view the transparency-coding table. Access state and 
+    congressional district data here."""
 
     # Use st.markdown to display the gray rectangle with text
     st.markdown(
