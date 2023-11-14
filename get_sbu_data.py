@@ -47,12 +47,11 @@ county_name = format_county(selected_county)
 
 
 st.header('Get Facilities in Selected County')
-#sql = 'select * from "ECHO_EXPORTER" where "FAC_COUNTY" = \'TOMPKINS\' and "FAC_STATE" = \'NY\'' # "ECHO_EXPORTER" contains basic info about all regulated industrial facilities, including location
-#fac = get_echo_data(sql)
-"""Note: because of errors in the EPA's own data, the above query may not always return accurate results.
-For instance, sometimes county names are listed as just "Tompkins"; sometimes they are listed as "Tompkins County".
-A more robust version utilizes another approach. See below:
-"""
+
+# Note: because of errors in the EPA's own data, the above query may not always return accurate results.
+# For instance, sometimes county names are listed as just "Tompkins"; sometimes they are listed as "Tompkins County".
+# A more robust version utilizes another approach. See below:
+
 # Get county names based on Steve's work. If we know our county of interest is Tompkins, NY, we can search for other names it may be listed under
 counties = pd.read_csv("https://raw.githubusercontent.com/edgi-govdata-archiving/ECHO_modules/main/data/state_counties_corrected.csv") # Get a county name lookup
 counties = counties.groupby(by=["FAC_STATE", "County", "FAC_COUNTY"]).count() # Restructure the data
@@ -126,7 +125,6 @@ def bivariate_map(regions, points, bounds=None, no_text=False):
 
     # Show the points
     ## Create the Marker Cluster array
-    #kwargs={"disableClusteringAtZoom": 10, "showCoverageOnHover": False}
     mc = FastMarkerCluster("")
  
     # Add a clickable marker for each facility
