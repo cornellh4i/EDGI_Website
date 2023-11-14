@@ -5,15 +5,16 @@ import numpy as np
 import streamlit as st
 from streamlit_folium import folium_static
 
+
 # Initialize a session state variable that tracks the sidebar state
 if 'sidebar_state' not in st.session_state:
     st.session_state.sidebar_state = 'expanded'
 
-# Streamlit set_page_config 
-st.set_page_config(layout= "wide")
+# Streamlit set_page_config
+st.set_page_config(layout="wide")
 
 # Create a Folium map that is zoomed-in a bit
-map = folium.Map(location=[0.0, 0.0], zoom_start=2)
+map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
 
 # Define the HTML template with CSS to make the map full-screen
 map_html = """
@@ -27,21 +28,27 @@ iframe {
     width: 100%;
     min-height: 400px;
     height: 600px;
+    border: none;
+    position: relative;
+    z-index: 1;
 }
 </style>
 """
 st.markdown(map_html, unsafe_allow_html=True)
 
 # Display the map using st_folium
-st_data = folium_static(map)
+folium_static(map)
 
 # this is for the button
 if 'button' not in st.session_state:
     st.session_state.button = False
 
 # Helper function to open/close the sidebar when the user presses the button
+
+
 def click_button():
     st.session_state.button = not st.session_state.button
+
 
 # The button itself styled
 m = st.markdown("""
@@ -58,14 +65,16 @@ div.stButton > button:first-child {
     border: 2px solid #3A7568;
     width: 70px;
     height: 70px; 
+    position: relative;
+    z-index: 2;
 }
 </style>""", unsafe_allow_html=True)
 st.button('Open Guide', on_click=click_button,)
 
 
 # Function to display words to the left and circles with text to the right
-def display_words_and_circles(word,number):
-  st.write(f'<div style="display: flex; align-items: center;">\
+def display_words_and_circles(word, number):
+    st.write(f'<div style="display: flex; align-items: center;">\
     <div style="margin-right: 20px;"><h1>{word}</h1></div>\
     <div style="\
     width: 60px; \
@@ -81,19 +90,21 @@ def display_words_and_circles(word,number):
     font-size: 20px;">{number}</div>\
   </div>', unsafe_allow_html=True)
 
+
 def violations(per_fac, per_insp, per_enfo):
-  with st.container():
-    display_words_and_circles("Violations per facility", per_fac)
-  with st.container():
-    display_words_and_circles("Violations per inspection", per_insp)
-  with st.container():
-    display_words_and_circles("Violations per enforcement", per_enfo)
+    with st.container():
+        display_words_and_circles("Violations per facility", per_fac)
+    with st.container():
+        display_words_and_circles("Violations per inspection", per_insp)
+    with st.container():
+        display_words_and_circles("Violations per enforcement", per_enfo)
+
 
 def starter_top_info():
-  st.title("How to use")
+    st.title("How to use")
 
-  # Define your content as a string
-  content = """
+    # Define your content as a string
+    content = """
   Zoom in or search to select a county to see county-specific data on violations, inspections, and enforcement actions by the EPA under the:
   - Clean Air Act (CAA)
   - Clean Water Act (CWA)
@@ -102,32 +113,36 @@ def starter_top_info():
   Click on the circles within a county to zoom in and locate specific facilities. Hover over the facility’s circle to access its detailed ECHO report.
   """
 
-  # Calculate the length of the content
-  content_length = len(content)
+    # Calculate the length of the content
+    content_length = len(content)
 
-  # Set the maximum width of the sidebar
-  max_sidebar_width = 500
+    # Set the maximum width of the sidebar
+    max_sidebar_width = 500
 
-  # Calculate the sidebar width based on content length
-  sidebar_width = min(max_sidebar_width, content_length * 10)  # Adjust the multiplier as needed
+    # Calculate the sidebar width based on content length
+    # Adjust the multiplier as needed
+    sidebar_width = min(max_sidebar_width, content_length * 10)
 
-  # Set the width of the sidebar
-  st.markdown(f'<style>div.Widget.row-widget.stRadio > div {{ width: {sidebar_width}px !important; }}</style>', unsafe_allow_html=True)
+    # Set the width of the sidebar
+    st.markdown(
+        f'<style>div.Widget.row-widget.stRadio > div {{ width: {sidebar_width}px !important; }}</style>', unsafe_allow_html=True)
 
-  # Display the content
-  st.markdown(content)
+    # Display the content
+    st.markdown(content)
+
 
 def gradingTabData():
-  CAA, CWA, RCRA = st.tabs(["CAA", "CWA", "RCRA"])
-  with CAA:
-    violations(17, 19,18) #test
-  with CWA:
-    violations(1, 2, 3) #test
-  with RCRA:
-    violations(7, 9,8) #test
+    CAA, CWA, RCRA = st.tabs(["CAA", "CWA", "RCRA"])
+    with CAA:
+        violations(17, 19, 18)  # test
+    with CWA:
+        violations(1, 2, 3)  # test
+    with RCRA:
+        violations(7, 9, 8)  # test
+
 
 def gradingTabInfo():
-  # Define the CSS style for the gray rectangle
+    # Define the CSS style for the gray rectangle
     gray_rectangle_style = """
         background-color: #e6e6e6;
         padding: 10px;
@@ -150,8 +165,9 @@ def gradingTabInfo():
     # Use st.markdown to render the HTML content
     st.markdown(html_content, unsafe_allow_html=True)
 
+
 def highlightTabInfo():
-  # Define the CSS style for the gray rectangle
+    # Define the CSS style for the gray rectangle
     gray_rectangle_style = """
         background-color: #e6e6e6;
         padding: 10px;
@@ -172,10 +188,11 @@ def highlightTabInfo():
     # Use st.markdown to render the HTML content
     st.markdown(html_content, unsafe_allow_html=True)
 
+
 def highlightTabData():
-  # Use st.markdown to render the HTML content
-  st.markdown(
-    """
+    # Use st.markdown to render the HTML content
+    st.markdown(
+        """
     <div style="display: flex; align-items: center;">
         <div>
             <h1 style="margin-right: 10px;">Key: President</h1>
@@ -190,26 +207,28 @@ def highlightTabData():
         </div>
     </div>
     """,
-    unsafe_allow_html=True
-)
+        unsafe_allow_html=True
+    )
 
+    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>",
+                unsafe_allow_html=True)
+    # this is a filler graph
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Potentially incomplete data<subtitle>",
+                unsafe_allow_html=True)
+    # this is a filler graph
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly incomplete data<subtitle>",
+                unsafe_allow_html=True)
+    # this is a filler graph
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
 
-  
-  st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>", unsafe_allow_html=True)
-  # this is a filler graph
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
-  st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Potentially incomplete data<subtitle>", unsafe_allow_html=True)
-  # this is a filler graph
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
-  st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly incomplete data<subtitle>", unsafe_allow_html=True)
-  # this is a filler graph
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
 
 def comparisonTabInfo():
-  # Define the CSS style for the gray rectangle
+    # Define the CSS style for the gray rectangle
     gray_rectangle_style = """
         background-color: #e6e6e6;
         padding: 10px;
@@ -231,18 +250,22 @@ def comparisonTabInfo():
     # Use st.markdown to render the HTML content
     st.markdown(html_content, unsafe_allow_html=True)
 
+
 def comparisonTabData():
-  st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2022)</h2>", unsafe_allow_html=True)
-  # this is where graph for CAA Violators
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
-  st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2022</h2>", unsafe_allow_html=True)
-  # this is where graph for CWA Violators
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
+    st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2022)</h2>",
+                unsafe_allow_html=True)
+    # this is where graph for CAA Violators
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+    st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2022</h2>",
+                unsafe_allow_html=True)
+    # this is where graph for CWA Violators
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+
 
 def non_complianceTabInfo():
-  # Define the CSS style for the gray rectangle
+    # Define the CSS style for the gray rectangle
     gray_rectangle_style = """
         background-color: #e6e6e6;
         padding: 10px;
@@ -263,26 +286,32 @@ def non_complianceTabInfo():
     # Use st.markdown to render the HTML content
     st.markdown(html_content, unsafe_allow_html=True)
 
-def non_complianceTabData(): 
-  st.markdown("<h2 style='text-align: center'>CAA Violators</h2>", unsafe_allow_html=True)
-  # this is where graph for CAA Violators
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
-  st.markdown("<h2 style='text-align: center'>CWA Violators</h2>", unsafe_allow_html=True)
-  # this is where graph for CWA Violators
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
-  st.markdown("<h2 style='text-align: center'>RCRA Violators</h>", unsafe_allow_html=True)
-  # this is where graph for RCRA Violators
-  chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-  st.bar_chart(chart_data)
-   
-# Bottom info for the tabs 
-def bottom_info():
-  st.header("") # creates a gap
 
-  # Define a CSS style for the gray rectangle with curved edges
-  gray_rectangle_style = """
+def non_complianceTabData():
+    st.markdown("<h2 style='text-align: center'>CAA Violators</h2>",
+                unsafe_allow_html=True)
+    # this is where graph for CAA Violators
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+    st.markdown("<h2 style='text-align: center'>CWA Violators</h2>",
+                unsafe_allow_html=True)
+    # this is where graph for CWA Violators
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+    st.markdown("<h2 style='text-align: center'>RCRA Violators</h>",
+                unsafe_allow_html=True)
+    # this is where graph for RCRA Violators
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+    st.bar_chart(chart_data)
+
+# Bottom info for the tabs
+
+
+def bottom_info():
+    st.header("")  # creates a gap
+
+    # Define a CSS style for the gray rectangle with curved edges
+    gray_rectangle_style = """
     background-color: #e6e6e6;
     padding: 10px;
     border-radius: 5px;
@@ -290,56 +319,61 @@ def bottom_info():
     font-size: 12px;
   """
 
-  # text for the bottom of the page
-  text = """The reliability of data in figures throughout this report is 
+    # text for the bottom of the page
+    text = """The reliability of data in figures throughout this report is 
   indicated by the figure subtitle and degree of transparency. See the Data 
   Limitations section to view the transparency-coding table. Access state and 
   congressional district data here."""
 
-  # Use st.markdown to display the gray rectangle with text
-  st.markdown(f'<div style="{gray_rectangle_style}">{text}</div>', unsafe_allow_html=True)
-  st.header("") # creates a gap
+    # Use st.markdown to display the gray rectangle with text
+    st.markdown(
+        f'<div style="{gray_rectangle_style}">{text}</div>', unsafe_allow_html=True)
+    st.header("")  # creates a gap
 
 # data visualization for the sidebar
-def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0 , RCRA_value=0):
-  if st.session_state.button:
-    # User opens the sidebar
-    with st.sidebar:
-      if county is None or state is None:
-        starter_top_info()
-      else:
-        st.title(county)
-        st.subheader(state)
-        st.header("") # Add an empty line to create space
-        st.header("Operating Facilities")
-        st.subheader("CAA: " + str(CAA_value))
-        st.subheader("CWA: " + str(CWA_value))
-        st.subheader("RCRA: " + str(RCRA_value))
-        with st.container():
-          grading, highlight, comparison, non_compliance = st.tabs(["Grading", "Highlights", "In Comparison", "Recent Non-Compliance"])
-          with grading:
-            gradingTabData()
-            bottom_info()
-            gradingTabInfo()
 
-          with highlight:
-            highlightTabData() 
-            bottom_info()
-            highlightTabInfo()
 
-          with comparison: 
-            comparisonTabData()
-            bottom_info()
-            comparisonTabInfo()
+def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0):
+    if st.session_state.button:
+        # User opens the sidebar
+        with st.sidebar:
+            if county is None or state is None:
+                starter_top_info()
+            else:
+                st.title(county)
+                st.subheader(state)
+                st.header("")  # Add an empty line to create space
+                st.header("Operating Facilities")
+                st.subheader("CAA: " + str(CAA_value))
+                st.subheader("CWA: " + str(CWA_value))
+                st.subheader("RCRA: " + str(RCRA_value))
+                with st.container():
+                    grading, highlight, comparison, non_compliance = st.tabs(
+                        ["Grading", "Highlights", "In Comparison", "Recent Non-Compliance"])
+                    with grading:
+                        gradingTabData()
+                        bottom_info()
+                        gradingTabInfo()
 
-          with non_compliance:
-            non_complianceTabData()
-            bottom_info()
-            non_complianceTabInfo()
+                    with highlight:
+                        highlightTabData()
+                        bottom_info()
+                        highlightTabInfo()
+
+                    with comparison:
+                        comparisonTabData()
+                        bottom_info()
+                        comparisonTabInfo()
+
+                    with non_compliance:
+                        non_complianceTabData()
+                        bottom_info()
+                        non_complianceTabInfo()
+
 
 # Information that is shown when button is clicked
 if st.session_state.button:
     # User opens the sidebar
     with st.sidebar:
-      #fillSideBar() #starter
-      fillSideBar("Niagara County","New York", 72, 73,74)
+        # fillSideBar() #starter
+        fillSideBar("Niagara County", "New York", 72, 73, 74)
