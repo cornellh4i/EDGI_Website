@@ -17,17 +17,19 @@ def convert_state_fp(code):
 
     return states[code]
 
-
 # Create some session state variables to track user interaction
 if "first_time" not in st.session_state: # If this is the first time loading the script, track that
     st.session_state["first_time"] = True 
-if "county_names" not in st.session_state: # If we haven't loaded county names before, get ready to
-	  st.session_state["county_names"] = None
+if "state_data" not in st.session_state: # If we haven't loaded state data before, get ready to
+	  st.session_state["state_data"] = None
+if "county_data" not in st.session_state: # If we haven't loaded state data before, get ready to
+	  st.session_state["county_data"] = None
         
 
 @st.cache_data
 def load_states_gdf():
     '''
+    Reads the GeoJSON containing state data and returns a GeoDataFrame with that data
     '''
     # Create GeoDataFrame for states
     states_gdf = geopandas.read_file(
@@ -39,6 +41,7 @@ def load_states_gdf():
 @st.cache_data
 def load_counties_gdf():
     '''
+    Reads the GeoJSON containing county data and returns a GeoDataFrame with that data
     '''
     # Read counties GeoJSON
     f = open("data\counties.geojson",)
@@ -69,6 +72,7 @@ m = folium.Map(location=[38, -97], zoom_start=4)
 # Add counties to map
 county_geo = folium.GeoJson(
     st.session_state["county_data"],
+    zoom_on_click=True,
     name="US Counties",
     style_function=lambda feature: {
         "fillColor": "#00000000",
