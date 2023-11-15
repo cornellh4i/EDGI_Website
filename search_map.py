@@ -8,6 +8,12 @@ import json
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
+# Style constants
+UNSELECTED_FILL = "#00000000"
+UNSELECTED_OUTLINE = "black"
+HIGHLIGHT_FILL = "#FF0000"
+HIGHLIGHT_OUTLINE = "#9A0000"
+
 
 def convert_state_fp(code):
     '''
@@ -75,14 +81,14 @@ county_geo = folium.GeoJson(
     zoom_on_click=True,
     name="US Counties",
     style_function=lambda feature: {
-        "fillColor": "#00000000",
-        "color": "black",
+        "fillColor": UNSELECTED_FILL,
+        "color": UNSELECTED_OUTLINE,
         "weight": 1,
         "fillOpacity": 0,
     },
     highlight_function=lambda feature: {
-        "fillColor": "#FF0000",
-        "color": "#9A0000",
+        "fillColor": HIGHLIGHT_FILL,
+        "color": HIGHLIGHT_OUTLINE,
         "weight": 2,
         "fillOpacity": 0.2,
     },
@@ -97,14 +103,14 @@ state_geo = folium.GeoJson(
     zoom_on_click=True,
     name="US States",
     style_function=lambda feature: {
-        "fillColor": "#00000000",
-        "color": "black",
+        "fillColor": UNSELECTED_FILL,
+        "color": UNSELECTED_OUTLINE,
         "weight": 2,
         "fillOpacity": 0,
     },
     highlight_function=lambda feature: {
-        "fillColor": "#FF0000",
-        "color": "#9A0000",
+        "fillColor": HIGHLIGHT_FILL,
+        "color": HIGHLIGHT_OUTLINE,
         "weight": 2,
         "fillOpacity": 0.2,
     },
