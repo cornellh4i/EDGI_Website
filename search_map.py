@@ -8,12 +8,6 @@ import json
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
-# Create GeoDataFrame for states
-states_gdf = geopandas.read_file(
-    "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/us_states.json",
-    driver="GeoJSON",
-)
-
 
 def convert_state_fp(code):
     '''
@@ -23,27 +17,62 @@ def convert_state_fp(code):
 
     return states[code]
 
-# Read counties GeoJSON
-f = open("data\counties.geojson",)
-data = json.load(f)
+# Create some session state variables to track user interaction
+if "first_time" not in st.session_state: # If this is the first time loading the script, track that
+    st.session_state["first_time"] = True 
+if "state_data" not in st.session_state: # If we haven't loaded state data before, get ready to
+	  st.session_state["state_data"] = None
+if "county_data" not in st.session_state: # If we haven't loaded state data before, get ready to
+	  st.session_state["county_data"] = None
+        
 
-# Add state names to each county name in counties.geojson
-for feature in data["features"]:
-    feature['properties']['NAME'] = feature['properties']['NAME'] + ", " + \
-        convert_state_fp(feature['properties']['STATEFP'])
+@st.cache_data
+def load_states_gdf():
+    '''
+    Reads the GeoJSON containing state data and returns a GeoDataFrame with that data
+    '''
+    # Create GeoDataFrame for states
+    states_gdf = geopandas.read_file(
+        "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/us_states.json",
+        driver="GeoJSON",
+    )
+    return states_gdf
 
-f.close()
+@st.cache_data
+def load_counties_gdf():
+    '''
+    Reads the GeoJSON containing county data and returns a GeoDataFrame with that data
+    '''
+    # Read counties GeoJSON
+    f = open("data\counties.geojson",)
+    data = json.load(f)
 
-# Create GeoDataFrame for counties
-counties_gdf = geopandas.GeoDataFrame.from_features(data["features"])
-counties_gdf = counties_gdf.set_crs("EPSG:4326")
+    # Add state names to each county name in counties.geojson
+    for feature in data["features"]:
+        feature['properties']['NAME'] = feature['properties']['NAME'] + ", " + \
+            convert_state_fp(feature['properties']['STATEFP'])
+
+    f.close()
+
+    # Create GeoDataFrame for counties
+    counties_gdf = geopandas.GeoDataFrame.from_features(data["features"])
+    counties_gdf = counties_gdf.set_crs("EPSG:4326")
+    
+    return counties_gdf
+
+
+if st.session_state["first_time"]:
+    st.session_state["state_data"] = load_states_gdf()
+    st.session_state["county_data"] = load_counties_gdf()
+    st.session_state["first_time"] = False
 
 # Create map
 m = folium.Map(location=[38, -97], zoom_start=4)
 
 # Add counties to map
 county_geo = folium.GeoJson(
-    counties_gdf,
+    st.session_state["county_data"],
+    zoom_on_click=True,
     name="US Counties",
     style_function=lambda feature: {
         "fillColor": "#00000000",
@@ -64,7 +93,7 @@ county_geo = folium.GeoJson(
 
 # Add states to map
 state_geo = folium.GeoJson(
-    states_gdf,
+    st.session_state["state_data"],
     zoom_on_click=True,
     name="US States",
     style_function=lambda feature: {
@@ -97,4 +126,4 @@ county_search = Search(
 # Display the map
 folium.LayerControl().add_to(m)
 
-st_data = st_folium(m, width=725)
+st_data = st_folium(m, width=725, returned_objects=[])
