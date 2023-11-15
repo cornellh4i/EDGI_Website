@@ -49,7 +49,6 @@ After installing the dependencies, you can run the Streamlit app with:
 This will start the Streamlit server, and the app should open in your default web browser
 """
 
-
 # Import necessary libraries
 import streamlit as st
 import pandas as pd
@@ -95,4 +94,3 @@ area_chart = alt.Chart(source).mark_area().encode(
     y='y'
 ).properties(title="Altair Area Chart")
 st.altair_chart(area_chart)
-
