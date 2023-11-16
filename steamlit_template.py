@@ -43,7 +43,7 @@ Running the Streamlit App
 
 After installing the dependencies, you can run the Streamlit app with:
     ```
-    streamlit run streamlit_template.py
+    streamlit run steamlit_template.py
     ```
 
 This will start the Streamlit server, and the app should open in your default web browser
