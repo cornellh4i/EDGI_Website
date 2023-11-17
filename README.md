@@ -14,14 +14,14 @@ The project aims to develop an interactable, user-friendly website platform that
         `python -m virtualenv env_name`
 4. Activate the virtual environment:
         - Windows:
-            ```
-            env_name/Scripts/activate
-            ```
+            
+            `env_name/Scripts/activate`
+            
 
         - macOS and Linux:
-            ```
-            source env_name/bin/activate
-            ```
+            
+            `source env_name/bin/activate``
+            
 
 5. `pip install -r requirements.txt` to install dependencies
 6. `streamlit run file.py` to open in web browser
