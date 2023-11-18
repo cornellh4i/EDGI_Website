@@ -130,6 +130,8 @@ def starter_top_info():
     st.markdown(content)
 
 
+#the following 2 functions, gradingTabData() and gradingTabInfo() are the content for the grading tab
+
 def gradingTabData():
     CAA, CWA, RCRA = st.tabs(["CAA", "CWA", "RCRA"])
     with CAA:
@@ -139,16 +141,18 @@ def gradingTabData():
     with RCRA:
         violations(7, 9, 8)  # test
 
+# Define a CSS style for the gray rectangle with curved edges
+gray_rectangle_style = """
+    background-color: #e6e6e6;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+    font-size: 12px;
+"""
+
+
 
 def gradingTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
@@ -169,15 +173,9 @@ def gradingTabInfo():
     st.markdown(html_content, unsafe_allow_html=True)
 
 
-def highlightTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
+#the following 2 functions, highlightTabInfo() and highlightTabData() are the content for the highlight tab
 
+def highlightTabInfo():
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
@@ -234,15 +232,9 @@ def highlightTabData():
     st.bar_chart(chart_data)
 
 
-def comparisonTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
+#the following 2 functions, comparisonTabInfo() and comparisonTabData() are the content for the comparison tab
 
+def comparisonTabInfo():
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
@@ -276,14 +268,9 @@ def comparisonTabData():
     st.bar_chart(chart_data)
 
 
+#the following 2 functions, non_complianceTabInfo() and non_complianceTabData() are the content for the non_compliance tab
+
 def non_complianceTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
 
     # Define the HTML content as a string
     html_content = f"""
@@ -330,15 +317,6 @@ def non_complianceTabData():
 def bottom_info():
     st.header("")  # creates a gap
 
-    # Define a CSS style for the gray rectangle with curved edges
-    gray_rectangle_style = """
-    background-color: #e6e6e6;
-    padding: 10px;
-    border-radius: 5px;
-    color: black;
-    font-size: 12px;
-  """
-
     # text for the bottom of the page
     text = """The reliability of data in figures throughout this report is 
     indicated by the figure subtitle and degree of transparency. See the Data 
@@ -350,8 +328,8 @@ def bottom_info():
         f'<div style="{gray_rectangle_style}">{text}</div>', unsafe_allow_html=True)
     st.header("")  # creates a gap
 
-# data visualization for the sidebar
 
+# data visualization for the sidebar
 
 def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0):
     if st.session_state.button:
@@ -395,5 +373,5 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0)
 if st.session_state.button:
     # User opens the sidebar
     with st.sidebar:
-        # fillSideBar() #starter
-        fillSideBar("Niagara County", "New York", 72, 73, 74)
+        fillSideBar() #starter
+        # fillSideBar("Niagara County", "New York", 72, 73, 74)
