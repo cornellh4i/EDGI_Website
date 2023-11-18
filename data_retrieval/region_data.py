@@ -54,10 +54,11 @@ if region_type == "County":
     counties = df[df['FAC_STATE'] == selected_state]['County']
     counties = counties.unique()
 
-    selected_counties = st.selectbox(
+    selected_county = st.selectbox(
         "County", counties
     )
-
+else:
+    selected_county = []
 
 program = st.selectbox("Select program", ["CAA", "CWA", "RCRA"])
 year = st.selectbox("Select year: ", [2020, 2021, 2022])
@@ -71,29 +72,46 @@ def create_df( data_type, y_field ):
     usa_events = usa_region.get_events( data_type, program, 2021 )
     usa_events['USA'] = usa_events[y_field]/usa_num_facs
 
+    st.write("in create_df")
+
     state_events_dict = {}
-    for state in states:
-        state_region = Region( type='State', state=state,
-                    programs=[program,] )
-        state_num_facs = state_region.get_active_facilities( program )
-        state_events = state_region.get_events( data_type, program, 2021 )
-        state_events[ state ] = state_events[y_field]/state_num_facs
-        state_events_dict[ state ] = state_events
+    if (region_type == 'State'):
+        for state in states:
+            
+            st.write("state:", state)
+
+            state_region = Region( type='State', state=state,
+                        programs=program)
+            state_num_facs = state_region.get_active_facilities( program )
+
+            st.write("get_active_facilities: ", state_num_facs)
+
+            state_events = state_region.get_events( data_type, program, 2021 )
+
+            st.write("state_events: ")
+            state_events[ state ] = state_events[y_field]/state_num_facs
+            state_events_dict[ state ] = state_events
+            st.line_chart(state_events)
 
     if ( region_type != 'State' ):
-        local_region = Region( type=region_type, state=states[0], value=region_selected,
-                             programs=[program,])
+        local_region = Region( type=region_type, state=selected_state, value=selected_county,programs=program)
+
+        st.write(selected_county)
+
         local_num_facs = local_region.get_active_facilities( program )
+        
+        st.write(local_num_facs)
+
         local_events = local_region.get_events( data_type, program, 2021 )
-        local_events[ region_selected ] = local_events[y_field]/local_num_facs
+        local_events[ selected_county ] = local_events[y_field]/local_num_facs
 
     df_events = usa_events.drop( columns=y_field, axis=1 )
     for state_name,state_events in state_events_dict.items():
         df_events = df_events.merge( state_events[['Year',state_name]] )
     if ( region_type != 'State' ):
-        df_events = df_events.merge( local_events[['Year',region_selected]])
+        df_events = df_events.merge( local_events[['Year',selected_county]])
     
-    st.line_chart(df_events)
+    # st.line_chart(df_events)
     return df_events
 
 
@@ -103,36 +121,38 @@ def create_df( data_type, y_field ):
 
 
 
-def run_data_analysis(selected_state, selected_counties):
-    st.write(selected_state)
-    st.write(selected_counties)
-    st.write(program)
-    if region_type == "State":
-        region = Region(type=region_type, state=selected_state,
-                        programs=program)
-        # st.write(region)
-    elif region_type == "County":
-        region = Region(type=region_type, state=selected_state,
-                        value=selected_counties, programs=program)
-        # st.write(region)
+# def run_data_analysis(selected_state, selected_counties):
+#     st.write(selected_state)
+#     st.write(selected_counties)
+#     st.write(program)
+#     if region_type == "State":
+#         region = Region(type=region_type, state=selected_state,
+#                         programs=program)
+#         # st.write(region)
+#     elif region_type == "County":
+#         region = Region(type=region_type, state=selected_state,
+#                         value=selected_counties, programs=program)
+#         # st.write(region)
 
-    else:
-        st.error("Please select a region type and corresponding area.")
-        return
+#     else:
+#         st.error("Please select a region type and corresponding area.")
+#         return
 
-    df = region.get_per_1000('violations', 'USA', 2020)
-    st.write(df)
+#     # df = region.get_per_1000('violations', 'USA', 2020)
+#     # print(df)
 
-    events = region.get_events('violations', program, year)
-    st.line_chart(events)
+#     events = region.get_events('violations', program, year)
+#     st.line_chart(events)
 
-    active_facilities = region.get_active_facilities(program)
-    st.write("Active facilities: ", active_facilities)
+#     active_facilities = region.get_active_facilities(program)
+#     st.write("Active facilities: ", active_facilities)
 
 
+# if st.button("Run Analysis"):
+#     if region_type == "County":
+#         run_data_analysis(selected_state, selected_counties)
+#     else:
+#         run_data_analysis(selected_state, selected_counties=[])
 
-if st.button("Run Analysis"):
-    if region_type == "County":
-        run_data_analysis(selected_state, selected_counties)
-    else:
-        run_data_analysis(selected_state, selected_counties=[])
+df_events_inspections = create_df('inspections', 'Count')
+st.line_chart(df_events_inspections.set_index('Year'))
