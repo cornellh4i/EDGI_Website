@@ -7,6 +7,7 @@ plotly==5.17.0
 folium
 streamlit-folium
 plotly.express
+altair
 geopandas
 geojson
 seaborn
