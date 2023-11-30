@@ -5,7 +5,13 @@ import numpy as np
 import streamlit as st
 from streamlit_folium import folium_static
 
-
+# public variable that is shared amoung all functions 
+gray_rectangle_style = """
+    background-color: #e6e6e6;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+    """
 # Initialize a session state variable that tracks the sidebar state
 if 'sidebar_state' not in st.session_state:
     st.session_state.sidebar_state = 'expanded'
@@ -44,8 +50,6 @@ if 'button' not in st.session_state:
     st.session_state.button = False
 
 # Helper function to open/close the sidebar when the user presses the button
-
-
 def click_button():
     st.session_state.button = not st.session_state.button
 
@@ -74,6 +78,8 @@ st.button('Open Guide', on_click=click_button,)
 
 # Function to display words to the left and circles with text to the right
 def display_words_and_circles(word, number):
+    # TODO: logic for the color of the circle
+    # TODO: logic for the letter of the circle
     st.write(f'<div style="display: flex; align-items: center;">\
     <div style="margin-right: 20px;"><h1>{word}</h1></div>\
     <div style="\
@@ -105,12 +111,15 @@ def starter_top_info():
 
     # Define your content as a string
     content = """
-  Zoom in or search to select a county to see county-specific data on violations, inspections, and enforcement actions by the EPA under the:
+  Zoom in or search to select a county to see county-specific data on violations,
+    inspections, and enforcement actions by the EPA under the:
   - Clean Air Act (CAA)
   - Clean Water Act (CWA)
   - Resource Conservation and Recovery Act (RCRA)\n
-  You can also click on a state to view its counties, and click on a county to view the data.\n
-  Click on the circles within a county to zoom in and locate specific facilities. Hover over the facility’s circle to access its detailed ECHO report.
+  You can also click on a state to view its counties, and click on a county 
+  to view the data.\n
+  Click on the circles within a county to zoom in and locate specific facilities. 
+  Hover over the facility’s circle to access its detailed ECHO report.
   """
 
     # Calculate the length of the content
@@ -142,22 +151,18 @@ def gradingTabData():
 
 
 def gradingTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
         <subheader><b>Rationale for grading using these metrics:</b></subheader>
         <ul style: font-size: 12px>
             <li>More <b>violations per active facility</b> are worse</li>
-            <li>More <b>inspections</b> mean more problems will be found, which is good. Dividing violations by inspections indicates the strength of the inspecting</li>
-            <li>More <b>enforcements</b> when violations are found disincentivizes violating. Dividing violations by enforcements indicates the willingness to call fouls</li>
+            <li>More <b>inspections</b> mean more problems will be found, which 
+            is good. Dividing violations by inspections indicates the strength 
+            of the inspecting</li>
+            <li>More <b>enforcements</b> when violations are found disincentivizes
+              violating. Dividing violations by enforcements indicates the 
+              willingness to call fouls</li>
         </ul>
     </div>
     """
@@ -167,20 +172,18 @@ def gradingTabInfo():
 
 
 def highlightTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
         <ul>
-            <li> Comparing the first 3 years of the Obama administration to the first 3 years of the Trump administration, there has been a <b>2% decrease in inspections, 85% decrease in fines, and a 7% increase in enforcement actions.</b> </li>
-            <li> Under the Clean Water Act, the law whose regulation is best documented by available EPA data, <b> 759 facilities</b>, representing 44% of all regulated facilities in [county name], were in violation for at least 9 months of the last 3 years. </li>
+            <li> Comparing the first 3 years of the Obama administration to the 
+            first 3 years of the Trump administration, there has been a <b>2% 
+            decrease in inspections, 85% decrease in fines, and a 7% increase in 
+            enforcement actions.</b> </li>
+            <li> Under the Clean Water Act, the law whose regulation is best 
+            documented by available EPA data, <b> 759 facilities</b>, representing 
+            44% of all regulated facilities in [county name], were in violation for 
+            at least 9 months of the last 3 years. </li>
         </ul>
     </div>
     """
@@ -191,6 +194,7 @@ def highlightTabInfo():
 
 def highlightTabData():
     # Use st.markdown to render the HTML content
+    # TODO: redo the colors
     st.markdown(
         """
     <div style="display: flex; align-items: center;">
@@ -209,13 +213,13 @@ def highlightTabData():
     """,
         unsafe_allow_html=True
     )
-
+    # TODO: redo the graphs to take actual data
     st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>",
                 unsafe_allow_html=True)
     # this is a filler graph
     chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
     st.bar_chart(chart_data)
-    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Potentially incomplete data<subtitle>",
+    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle> Potentially incomplete data<subtitle>",
                 unsafe_allow_html=True)
     # this is a filler graph
     chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
@@ -228,21 +232,18 @@ def highlightTabData():
 
 
 def comparisonTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
         <ul>
-            <li>These two charts show how inspections and violations in this state compare to the national average per 1000 facilities in 2022</li>
-            <li>We use data from 2022 as it was the most recent full year and the ECHO database only reports currently active facilities</li>
-            <li>To enable comparison across locations with a differing number of active facilities, we standardize the comparison to a value per 1000 facilities, proportionally adjusting the data if there are more or less than 1000 facilities in a district or state</li>
+            <li>These two charts show how inspections and violations in this 
+            state compare to the national average per 1000 facilities in 2022</li>
+            <li>We use data from 2022 as it was the most recent full year and the 
+            ECHO database only reports currently active facilities</li>
+            <li>To enable comparison across locations with a differing number of 
+            active facilities, we standardize the comparison to a value per 1000 
+            facilities, proportionally adjusting the data if there are more or less 
+            than 1000 facilities in a district or state</li>
         </ul>
     </div>
     """
@@ -252,6 +253,7 @@ def comparisonTabInfo():
 
 
 def comparisonTabData():
+    # TODO: redo the graphs
     st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2022)</h2>",
                 unsafe_allow_html=True)
     # this is where graph for CAA Violators
@@ -265,15 +267,8 @@ def comparisonTabData():
 
 
 def non_complianceTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
+    # TODO: redo the words here
     html_content = f"""
     <div style="{gray_rectangle_style}">
         <ul>
@@ -288,6 +283,7 @@ def non_complianceTabInfo():
 
 
 def non_complianceTabData():
+    # TODO: fill with acutal data
     st.markdown("<h2 style='text-align: center'>CAA Violators</h2>",
                 unsafe_allow_html=True)
     # this is where graph for CAA Violators
@@ -304,21 +300,10 @@ def non_complianceTabData():
     chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
     st.bar_chart(chart_data)
 
+
 # Bottom info for the tabs
-
-
 def bottom_info():
     st.header("")  # creates a gap
-
-    # Define a CSS style for the gray rectangle with curved edges
-    gray_rectangle_style = """
-    background-color: #e6e6e6;
-    padding: 10px;
-    border-radius: 5px;
-    color: black;
-    font-size: 12px;
-  """
-
     # text for the bottom of the page
     text = """The reliability of data in figures throughout this report is 
   indicated by the figure subtitle and degree of transparency. See the Data 
