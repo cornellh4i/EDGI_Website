@@ -377,9 +377,11 @@ if st.session_state.button:
         fillSideBar("Niagara County", "New York", 72, 73, 74)
 
 
+# Create sections for anchor tags and background info
 col1, col2 = st.columns([0.4, 0.6])
 
 with col1:
+    # Anchor tags
     st.markdown('''
         - [Introduction](#introduction)
         - [About the EPA Data and its Limitations](#about-the-epa-data-and-its-limitations)
