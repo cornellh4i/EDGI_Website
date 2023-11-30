@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 .st-emotion-cache-18ni7ap.ezrtsby2 {
   background-color: rgb(122, 195, 231) !important;
   top: 100px !important;
@@ -7,3 +9,50 @@
   background-color: rgb(122, 195, 231) !important;
   top: 100px !important;
 }
+
+
+.navbar {
+  position: fixed;
+  top: 0px; /* Adjust as needed */
+  left: 0px; /* Adjust as needed */
+  background-color: #FFF;
+  display: flex;
+  width: 100%;
+  padding: 12px 64px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.title {
+  color: #3D7D71;
+  /* EDGI/H1 */
+  font-family: 'Open Sans';
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 66px */
+  letter-spacing: -1.012px;
+}
+
+
+a, a:hover, a:focus, a:active, a:visited {
+  text-decoration: none;
+  color: #1B7F71;
+  text-align: right;
+  /* EDGI/H3 */
+  font-family: Open Sans;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 48px */
+  letter-spacing: -0.736px;
+}
+/* .st-emotion-cache-2e90o1.ezrtsby2 {
+  background-color: #FFF;
+  display: flex;
+  width: 1920px;
+  padding: 12px 64px;
+  justify-content: space-between;
+  align-items: center;
+} */
