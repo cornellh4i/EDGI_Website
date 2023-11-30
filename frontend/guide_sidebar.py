@@ -375,3 +375,5 @@ if st.session_state.button:
     with st.sidebar:
         fillSideBar() #starter
         # fillSideBar("Niagara County", "New York", 72, 73, 74)
+        #fillSideBar() #starter
+        fillSideBar("Niagara County", "New York", 72, 73, 74)
