@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from streamlit_folium import folium_static
+from ECHO_modules.ECHO_modules.geographies import states
 
 
 # Initialize a session state variable that tracks the sidebar state
@@ -12,6 +13,22 @@ if 'sidebar_state' not in st.session_state:
 
 # Streamlit set_page_config
 st.set_page_config(layout="wide")
+
+selected_state = st.selectbox("States", states)
+
+# url stores the link in which we are getting county names from
+url = "https://raw.githubusercontent.com/edgi-govdata-archiving/"
+url += "ECHO_modules/packaging/data/state_counties_corrected.csv"
+# reading the csv
+df = pd.read_csv(url)
+# counties of the selected state
+counties = df[df['FAC_STATE'] == selected_state]['County']
+# remove redundant counties
+counties = counties.unique()
+# display the select box with the counties option
+selected_county = st.selectbox(
+    "County", counties
+)
 
 # Create a Folium map that is zoomed-in a bit
 map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
@@ -131,14 +148,14 @@ def starter_top_info():
     st.markdown(content)
 
 
-def gradingTabData():
+def gradingTabData(caa_fac, caa_insp, caa_enf, cwa_fac, cwa_insp, cwa_enf, rcra_fac, rcra_insp, rcra_enf):
     CAA, CWA, RCRA = st.tabs(["CAA", "CWA", "RCRA"])
     with CAA:
-        violations(17, 19, 18)  # test
+        violations(caa_fac, caa_insp, caa_enf)  # test
     with CWA:
-        violations(1, 2, 3)  # test
+        violations(cwa_fac, cwa_insp, cwa_enf)  # test
     with RCRA:
-        violations(7, 9, 8)  # test
+        violations(rcra_fac, rcra_insp, rcra_enf)  # test
 
 
 def gradingTabInfo():
@@ -332,6 +349,8 @@ def bottom_info():
 
 # data visualization for the sidebar
 
+from region_data import get_sidebar_grades
+
 
 def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0):
     if st.session_state.button:
@@ -351,7 +370,25 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0)
                     grading, highlight, comparison, non_compliance = st.tabs(
                         ["Grading", "Highlights", "In Comparison", "Recent Non-Compliance"])
                     with grading:
-                        gradingTabData()
+                        violations_caa = get_sidebar_grades(
+                            selected_state, selected_county, 'violations')['CAA']
+                        violations_cwa = get_sidebar_grades(
+                            selected_state, selected_county, 'violations')['CWA']
+                        violations_rcra = get_sidebar_grades(
+                            selected_state, selected_county, 'violations')['RCRA']
+                        inspections_caa = get_sidebar_grades(
+                            selected_state, selected_county, 'inspections')['CAA']
+                        inspections_cwa = get_sidebar_grades(
+                            selected_state, selected_county, 'inspections')['CWA']
+                        inspections_rcra = get_sidebar_grades(
+                            selected_state, selected_county, 'inspections')['RCRA']
+                        enforcements_caa = get_sidebar_grades(
+                            selected_state, selected_county, 'inspections')['CAA']
+                        enforcements_cwa = get_sidebar_grades(
+                            selected_state, selected_county, 'inspections')['CWA']
+                        enforcements_rcra = get_sidebar_grades(
+                            selected_state, selected_county, 'inspections')['RCRA']
+                        gradingTabData(violations_caa, inspections_caa, enforcements_caa, violations_cwa, inspections_cwa, enforcements_cwa, violations_rcra, inspections_rcra, enforcements_rcra)
                         bottom_info()
                         gradingTabInfo()
 
@@ -370,10 +407,11 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0)
                         bottom_info()
                         non_complianceTabInfo()
 
+from region_data import get_number_facs
 
 # Information that is shown when button is clicked
 if st.session_state.button:
     # User opens the sidebar
     with st.sidebar:
         # fillSideBar() #starter
-        fillSideBar("Niagara County", "New York", 72, 73, 74)
+        fillSideBar(selected_county, selected_state, get_number_facs(selected_state, selected_county, 'CAA'), get_number_facs(selected_state, selected_county, 'CWA'), get_number_facs(selected_state, selected_county, 'RCRA'))
