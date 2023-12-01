@@ -10,11 +10,10 @@
   top: 100px !important;
 }
 
-
 .navbar {
   position: fixed;
-  top: 0px; /* Adjust as needed */
-  left: 0px; /* Adjust as needed */
+  top: 0px;
+  left: 0px;
   background-color: #FFF;
   display: flex;
   width: 100%;
@@ -22,7 +21,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
 
 .title {
   color: #3D7D71;
@@ -34,7 +32,6 @@
   line-height: 150%; /* 66px */
   letter-spacing: -1.012px;
 }
-
 
 a, a:hover, a:focus, a:active, a:visited {
   text-decoration: none;
