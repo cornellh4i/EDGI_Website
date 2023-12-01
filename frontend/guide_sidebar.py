@@ -46,7 +46,6 @@ if 'button' not in st.session_state:
 def click_button():
     st.session_state.button = not st.session_state.button
 
-
 # The button itself styled
 m = st.markdown("""
 <style>
@@ -149,8 +148,6 @@ gray_rectangle_style = """
     color: black;
     font-size: 12px;
 """
-
-
 
 def gradingTabInfo():
     # Define the HTML content as a string
@@ -376,4 +373,3 @@ if st.session_state.button:
         fillSideBar() #starter
         # fillSideBar("Niagara County", "New York", 72, 73, 74)
         #fillSideBar() #starter
-        fillSideBar("Niagara County", "New York", 72, 73, 74)
