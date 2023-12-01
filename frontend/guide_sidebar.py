@@ -107,8 +107,6 @@ def starter_top_info():
   - Resource Conservation and Recovery Act (RCRA)\n
   You can also click on a state to view its counties, and click on a county 
   to view the data.\n
-  Click on the circles within a county to zoom in and locate specific
-  facilities. Hover over the facility’s circle to access its detailed ECHO report.
   """
 
     # Calculate the length of the content
@@ -133,6 +131,7 @@ def starter_top_info():
 
 def gradingTabData():
     CAA, CWA, RCRA = st.tabs(["CAA", "CWA", "RCRA"])
+    #TODO: replace these buttons with real numbers
     with CAA:
         violations(17, 19, 18)  # test
     with CWA:
@@ -146,15 +145,14 @@ gray_rectangle_style = """
     padding: 10px;
     border-radius: 5px;
     color: black;
-    font-size: 12px;
 """
 
 def gradingTabInfo():
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
-        <subheader><b>Rationale for grading using these metrics:</b></subheader>
-        <ul style: font-size: 12px>
+        <header><b>Rationale for grading using these metrics:</b></header>
+        <ul>
             <li>More <b>violations per active facility</b> are worse</li>
             <li>More <b>inspections</b> mean more problems will be found, which 
             is good. Dividing violations by inspections indicates the strength 
@@ -214,17 +212,17 @@ def highlightTabData():
 
     st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>",
                 unsafe_allow_html=True)
-    # this is a filler graph
+    # TODO: this is a filler graph
     chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
     st.bar_chart(chart_data)
     st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Potentially incomplete data<subtitle>",
                 unsafe_allow_html=True)
-    # this is a filler graph
+    # TODO: this is a filler graph
     chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
     st.bar_chart(chart_data)
     st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly incomplete data<subtitle>",
                 unsafe_allow_html=True)
-    # this is a filler graph
+    # TODO: this is a filler graph
     chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
     st.bar_chart(chart_data)
 
@@ -370,6 +368,6 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0)
 if st.session_state.button:
     # User opens the sidebar
     with st.sidebar:
-        fillSideBar() #starter
-        # fillSideBar("Niagara County", "New York", 72, 73, 74)
+        #fillSideBar() #starter
+        fillSideBar("Niagara County", "New York", 72, 73, 74)
         #fillSideBar() #starter
