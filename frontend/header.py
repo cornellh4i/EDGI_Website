@@ -3,8 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Page Title", layout="wide")
 
 # Connect file to style.css
-# FIX PATH AS NEEDED
-with open("C:\\Users\\owenc\\Hack4Impact\\EDGI_Website\\css\\style.css") as f:
+with open("css/style.css") as f:
     st.markdown(
         f"""<style>{f.read()}</style> <body>
 
@@ -18,13 +17,16 @@ st.markdown("""
         .reportview-container {
             margin-top: -2em;
         }
+        .st-emotion-cache-2e90o1.ezrtsby2 {
+            display: none;
+        }
+        .st-emotion-cache-18ni7ap.ezrtsby2 {
+            display: none;
+        }
         #MainMenu {visibility: hidden;}
         .stDeployButton {display:none;}
         footer {visibility: hidden;}
         #stDecoration {display:none;}
-        .st-emotion-cache-2e90o1.ezrtsby2 {
-            display: none;
-        }
     </style>
 """, unsafe_allow_html=True)
 
