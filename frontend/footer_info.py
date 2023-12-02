@@ -1,7 +1,7 @@
 import streamlit as st
 
-# Connect file to footer.css
-with open("css/footer.css") as f:
+# Connect file to footer.css -- import fonts
+with open("css/fonts.css") as f:
     st.markdown(
         f"""<style>{f.read()}</style> <body>
 
@@ -9,13 +9,55 @@ with open("css/footer.css") as f:
         unsafe_allow_html=True,
     )
 
-# Disable default navbar
+# Styling
 st.markdown("""
     <style>
         .st-emotion-cache-1yycg8b.e1f1d6gn2 {
             position: sticky;
-            top: 100px;
+            top: 0px;
             height: 300px;
+            width: 209px;
+
+            display: flex;
+            width: 209px;
+            padding-top: 100px;
+            padding-right: 63px;
+            padding-left: 5px;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-shrink: 0;
+
+            font-family: 'Open Sans';
+            font-size: 22px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%;
+        }
+        .st-emotion-cache-1yycg8b.e1f1d6gn2 a, a:hover, a:focus, a:active, a:visited {
+            text-decoration: none;
+            color: #757575;
+            font-size: 22px;
+            font-style: normal;
+            font-weight: 600;
+        }
+        .st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover, a:focus, a:active {
+            color: #1B7F71;
+            font-weight: 700;
+        }
+        .st-emotion-cache-1yycg8b.e1f1d6gn2 ul {
+            list-style-type: none;
+        }
+        .st-emotion-cache-1yycg8b.e1f1d6gn2 li {
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: var(--EDGI-dark-teal, #1B7F71);
+            font-family: Open Sans;
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 150%;
+            letter-spacing: -0.92px;
         }
     </style>
 """, unsafe_allow_html=True)
