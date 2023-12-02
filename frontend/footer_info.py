@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Connect file to footer.css -- import fonts
+# Connect file to fonts.css
 with open("css/fonts.css") as f:
     st.markdown(
         f"""<style>{f.read()}</style> <body>
