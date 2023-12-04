@@ -8,7 +8,7 @@ from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
 def get_inflation(base_year):
     # base_year is the year for which a dollar is a dollar
     conn = sqlite3.connect(
-        f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+        "backend\EEW_County_ReportCards\region.db")
     cursor = conn.cursor()
 
     sql = 'select year, rate from inflation order by year desc'
@@ -63,7 +63,7 @@ class Region:
         self.programs = programs  # The EPA programs to include
 
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
         cursor = conn.cursor()
 
         self.region_id = get_region_rowid(
@@ -82,7 +82,7 @@ class Region:
 
     def get_counties_by_state(self, state):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
         sql = 'select region as county from regions where state=\'{}\''\
               ' and region_type=\'County\''.format(state)
         df = pd.read_sql_query(sql, conn)
@@ -90,7 +90,7 @@ class Region:
 
     def get_cds(self):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
         sql = 'select state, cd from real_cds order by state, cd'
         df = pd.read_sql_query(sql, conn)
         return df
@@ -104,7 +104,7 @@ class Region:
         # For CDs we can just use the per_fac table and
         # active_facilities for the region
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
 
         sql = 'select program as Program, 1000. * count as Per1000 from per_fac'
         sql += ' where region_id={} and type=\'{}\' and year={}'
@@ -121,7 +121,7 @@ class Region:
         # type is 'inspections' or 'violations'
         #  the region is 'USA', 'State', 'CD'
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
 
         sql = 'select program, sum(count) from active_facilities '
         if (self.programs is not None):
@@ -161,7 +161,7 @@ class Region:
 
     def get_recurring_violations(self, program):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
         cursor = conn.cursor()
 
         sql = 'select sum(count) from active_facilities where '
@@ -213,7 +213,7 @@ class Region:
 
     def get_events(self, event_type, program, base_year):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
 
         if event_type == 'inspections':
             sql = 'select year Year, sum(count) Count from inspections'
@@ -248,7 +248,7 @@ class Region:
 
     def get_non_compliants(self, program):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
 
         sql = 'select fac_name, noncomp_count, formal_action_count, dfr_url,'
         sql += ' fac_lat, fac_long from non_compliants where program=\'{}\''
@@ -267,7 +267,7 @@ class Region:
 
     def get_active_facilities(self, program, table='active_facilities'):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
         cursor = conn.cursor()
 
         if (self.value is None):
@@ -290,7 +290,7 @@ class Region:
 
     def get_ranked(self):
         conn = sqlite3.connect(
-            f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+            "backend\EEW_County_ReportCards\region.db")
 
         state_columns = 'CAA_Insp_Rank, CAA_Viol_Rank, CAA_Enf_Rank, '
         state_columns += 'CWA_Insp_Rank, CWA_Viol_Rank, CWA_Enf_Rank, '

@@ -95,25 +95,6 @@ def get_graphs(county,state, data_type):
     return sums_df
 
 
-    # # Setting 'ID' as the index for each DataFrame
-    # df_events_cwa.set_index(county, inplace=True)
-    # df_events_caa.set_index(county, inplace=True)
-    # df_events_rcra.set_index(county, inplace=True)
-    # # Creating a new DataFrame with the sum of values across DataFrames
-    # sums_df = pd.DataFrame(index=set(df_events_cwa.index) | set(df_events_caa.index) | set(df_events_rcra.index))
-    # sums_df['Total'] = df_events_cwa.get('Value_df1', 0) + df_events_caa.get('Value_df2', 0) + df_events_rcra.get('Value_df3', 0)
-
-    # dfs = [df_events_cwa, df_events_caa, df_events_rcra]
-    # concatenated_df = pd.concat(dfs, axis=0, ignore_index=True)
-    # # Calculating the sum based on 'ID'
-    # sums_df = concatenated_df.groupby(county).sum()
-    
-    # st.write(df_events_cwa)
-    # st.write(df_events_caa)
-    # st.write(df_events_rcra)
-    # st.write(sums_df)
-    # ylabel = '{} per facility'.format( data_type )
-
 get_graphs("ALBANY", "NY", "inspections")
     
 
