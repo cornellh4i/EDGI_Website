@@ -368,7 +368,7 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0)
                         gradingTabInfo()
 
                     with highlight:
-                        highlightTabData()
+                        highlightTabData(state,county)
                         bottom_info()
                         highlightTabInfo()
 
