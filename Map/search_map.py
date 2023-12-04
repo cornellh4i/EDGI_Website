@@ -50,7 +50,7 @@ def load_counties_gdf():
     Reads the GeoJSON containing county data and returns a GeoDataFrame with that data
     '''
     # Read counties GeoJSON
-    f = open("data\counties.geojson",)
+    f = open("../data/counties.geojson",)
     data = json.load(f)
 
     # Add state names to each county name in counties.geojson

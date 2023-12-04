@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Inter');
 
+/* Used to set background color and make room for navbar in header.py */
 .st-emotion-cache-18ni7ap.ezrtsby2 {
-  background-color: rgb(122, 195, 231) !important;
+  background-color: #FDFDFD !important;
   top: 100px !important;
 }
 
+/* Used to set background color and make room for navbar in header.py */
 .appview-container.st-emotion-cache-1wrcr25.ea3mdgi6 {
-  background-color: rgb(122, 195, 231) !important;
+  background-color: #FDFDFD !important;
   top: 100px !important;
 }
 
@@ -45,4 +47,103 @@ a, a:hover, a:focus, a:active, a:visited {
   font-weight: 600;
   line-height: 150%; /* 48px */
   letter-spacing: -0.736px;
+}
+
+* FOOTER STYLING */
+
+/* Used in footer_info.py for anchor tags container */
+.st-emotion-cache-1yycg8b.e1f1d6gn2 {
+  position: sticky;
+  top: 0px;
+  height: 300px;
+  width: 209px;
+
+  display: flex;
+  width: 209px;
+  padding-top: 100px;
+  padding-right: 63px;
+  padding-left: 5px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+
+  font-family: 'Open Sans';
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+}
+
+/* Used in footer_info.py for anchor tags */
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:active,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:visited {
+  text-decoration: none;
+  color: #757575;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:active {
+  color: #1B7F71;
+  font-weight: 700;
+}
+
+.st-emotion-cache-1yycg8b.e1f1d6gn2 ul {
+  list-style-type: none;
+}
+
+.st-emotion-cache-1yycg8b.e1f1d6gn2 li {
+  margin-bottom: 20px;
+}
+
+/* Used in footer_info.py for background info headers */
+h2 {
+  color: var(--EDGI-dark-teal, #1B7F71);
+  font-family: Open Sans;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: -0.92px;
+}
+
+.st-emotion-cache-1avcm0n.ezrtsby2 {
+  height: 0.0% !important;
+}
+
+.st-emotion-cache-ffhzg2{
+  color:black;
+}
+
+
+/* sidebar adjustment */
+section.st-emotion-cache-1ec6rqw.eczjsme11 {
+  margin-top: 2.5%;
+  min-height: 40%;
+  max-height: 58%;
+}
+
+div.st-emotion-cache-6qob1r.eczjsme3 {
+  height: 100%;
+}
+
+div.folium-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+  height: 940px;
+}
+
+div.st-emotion-cache-16txtl3 {
+  padding-top: 0rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+
+div.st-emotion-cache-27jjz0{
+  align-items: center;
 }
