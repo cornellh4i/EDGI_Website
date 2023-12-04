@@ -20,7 +20,7 @@ def sidebar():
     map_html = """
     <style>
     .main > div {
-                padding-top: 0rem;
+                padding-top: 3rem;
                 padding-left: 0rem;
                 padding-right: 0rem;
             }

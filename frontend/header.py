@@ -1,12 +1,11 @@
 import streamlit as st
 
 def header():
-    # st.set_page_config(page_title="Page Title", layout="wide")
 
     # Connect file to style.css
     with open("../css/style.css") as f:
         st.markdown(
-            f"""<style>{f.read()}</style> <body></body>""",
+            f"""<style>{f.read()}</style>""",
             unsafe_allow_html=True,
         )
 
@@ -41,4 +40,4 @@ def header():
         </nav>
     """, unsafe_allow_html=True)
 
-# header()
+

@@ -1,11 +1,8 @@
 import streamlit as st
 import sys
-from header import header
 sys.path.insert(0, "../Sidebar")
-from guide_sidebar import sidebar
 from streamlit_folium import folium_static 
 
-st.set_page_config(layout="wide")
 
 def footer_info():
 # Connect file to style.css
@@ -15,9 +12,6 @@ def footer_info():
             unsafe_allow_html=True,
         )
         
-    # Delete this in final website
-    st.header("Placeholder Content")
-    st.write("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Amet mauris commodo quis imperdiet. In metus vulputate eu scelerisque. Facilisis gravida neque convallis a cras semper. Quis vel eros donec ac odio. Posuere urna nec tincidunt praesent semper feugiat nibh sed. Vitae et leo duis ut. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Scelerisque varius morbi enim nunc faucibus a. Eget velit aliquet sagittis id consectetur purus ut. Massa eget egestas purus viverra. Libero justo laoreet sit amet cursus sit. Nibh nisl condimentum id venenatis a condimentum vitae sapien.")
 
     # Create sections for anchor tags and background info
     col1, col2 = st.columns([0.4, 0.6])
@@ -90,6 +84,3 @@ def footer_info():
         st.write('''
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Amet mauris commodo quis imperdiet. In metus vulputate eu scelerisque. Facilisis gravida neque convallis a cras semper. Quis vel eros donec ac odio. Posuere urna nec tincidunt praesent semper feugiat nibh sed. Vitae et leo duis ut. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Scelerisque varius morbi enim nunc faucibus a. Eget velit aliquet sagittis id consectetur purus ut. Massa eget egestas purus viverra. Libero justo laoreet sit amet cursus sit. Nibh nisl condimentum id venenatis a condimentum vitae sapien.
         ''')
-header()
-sidebar()
-footer_info()
