@@ -197,6 +197,8 @@ def highlightTabInfo():
     st.markdown(html_content, unsafe_allow_html=True)
 
 
+from region_data import get_graphs
+
 def highlightTabData(selected_state, selected_county):
     # Use st.markdown to render the HTML content
     st.markdown(
@@ -218,21 +220,21 @@ def highlightTabData(selected_state, selected_county):
         unsafe_allow_html=True
     )
 
-    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly complete data<subtitle>",
+    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2>",
                 unsafe_allow_html=True)
     # this is a filler graph
-    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-    st.bar_chart(chart_data)
-    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Potentially incomplete data<subtitle>",
+    chart_data_inspections = get_graphs(selected_county, selected_state, "inspections")
+    st.bar_chart(chart_data_inspections, x = 'Year', y = 'inspections')
+    st.markdown("<h2>Facility Violations - CAA, CWA, RCRA</h2>",
                 unsafe_allow_html=True)
     # this is a filler graph
-    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-    st.bar_chart(chart_data)
-    st.markdown("<h2>Facility Inspections - CAA, CWA, RCRA</h2> <subtitle>Mostly incomplete data<subtitle>",
+    chart_data_violations = get_graphs(selected_county, selected_state, "violations")
+    st.bar_chart(chart_data_violations, x = 'Year', y = 'violations')
+    st.markdown("<h2>Facility Enforcements - CAA, CWA, RCRA</h2>",
                 unsafe_allow_html=True)
     # this is a filler graph
-    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-    st.bar_chart(chart_data)
+    chart_data_enforcements = get_graphs(selected_county, selected_state, "enforcements")
+    st.bar_chart(chart_data_enforcements, x = 'Year', y = 'enforcements')
 
 
 def comparisonTabInfo():
