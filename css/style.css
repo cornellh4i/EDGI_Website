@@ -1,9 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
+/* Used to set background color and make room for navbar in header.py */
 .st-emotion-cache-18ni7ap.ezrtsby2 {
-  background-color: rgb(122, 195, 231) !important;
+  background-color: #FDFDFD !important;
   top: 100px !important;
 }
 
+/* Used to set background color and make room for navbar in header.py */
 .appview-container.st-emotion-cache-1wrcr25.ea3mdgi6 {
-  background-color: rgb(122, 195, 231) !important;
+  background-color: #FDFDFD !important;
   top: 100px !important;
+}
+
+/* Used in header.py for nav (navbar) component */
+.navbar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: #FFF;
+  display: flex;
+  width: 100%;
+  padding: 12px 64px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Used in header.py for 'County Reports' title within navbar */
+.title {
+  color: #3D7D71;
+  /* EDGI/H1 */
+  font-family: 'Open Sans';
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 66px */
+  letter-spacing: -1.012px;
+}
+
+/* Used in header.py for 'Exit' button within navbar */
+.navbar a, .navbar a:hover, .navbar a:focus, .navbar a:active, .navbar a:visited {
+  text-decoration: none;
+  color: #1B7F71;
+  text-align: right;
+  /* EDGI/H3 */
+  font-family: Open Sans;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 48px */
+  letter-spacing: -0.736px;
+}
+
+/* FOOTER STYLING */
+
+/* Used in footer_info.py for anchor tags container */
+.st-emotion-cache-1yycg8b.e1f1d6gn2 {
+  position: sticky;
+  top: 0px;
+  height: 300px;
+  width: 209px;
+
+  display: flex;
+  width: 209px;
+  padding-top: 100px;
+  padding-right: 63px;
+  padding-left: 5px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+
+  font-family: 'Open Sans';
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+}
+
+/* Used in footer_info.py for anchor tags */
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:active, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:visited {
+  text-decoration: none;
+  color: #757575;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+}
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:active {
+  color: #1B7F71;
+  font-weight: 700;
+}
+.st-emotion-cache-1yycg8b.e1f1d6gn2 ul {
+  list-style-type: none;
+}
+.st-emotion-cache-1yycg8b.e1f1d6gn2 li {
+  margin-bottom: 20px;
+}
+
+/* Used in footer_info.py for background info headers */
+h2 {
+  color: var(--EDGI-dark-teal, #1B7F71);
+  font-family: Open Sans;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: -0.92px;
 }

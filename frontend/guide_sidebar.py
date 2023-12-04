@@ -373,5 +373,5 @@ def fillSideBar(county=None, state=None, CAA_value=0, CWA_value=0, RCRA_value=0)
 if st.session_state.button:
     # User opens the sidebar
     with st.sidebar:
-        fillSideBar() #starter
-        # fillSideBar("Niagara County", "New York", 72, 73, 74)
+        # fillSideBar() #starter
+        fillSideBar("Niagara County", "New York", 72, 73, 74)
