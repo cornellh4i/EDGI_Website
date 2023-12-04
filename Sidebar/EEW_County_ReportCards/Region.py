@@ -7,8 +7,7 @@ from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
 
 def get_inflation(base_year):
     # base_year is the year for which a dollar is a dollar
-    conn = sqlite3.connect(
-        f"C:\\Users\\yummy\\OneDrive\\Documents\\h4i\EDGI_Website\\backend\\EEW_County_ReportCards\\region.db")
+    conn = sqlite3.connect("Sidebar/EEW_County_ReportCards/region.db")
     cursor = conn.cursor()
 
     sql = 'select year, rate from inflation order by year desc'

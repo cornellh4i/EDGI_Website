@@ -34,21 +34,18 @@ selected_county = st.selectbox(
 # Create a Folium map that is zoomed-in a bit
 map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
 
-# Define the HTML template with CSS to make the map full-screen
 map_html = """
 <style>
-body {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
+.main > div {
+            padding-left: 0rem;
+            padding-right: 0rem;
+        }
 iframe {
     width: 100%;
     min-height: 400px;
     height: 600px;
     border: none;
     position: relative;
-    z-index: 1;
 }
 </style>
 """
@@ -67,6 +64,13 @@ if 'button' not in st.session_state:
 def click_button():
     st.session_state.button = not st.session_state.button
 
+# Define the CSS style for the gray rectangle
+gray_rectangle_style = """
+    background-color: #e6e6e6;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+"""
 
 # The button itself styled
 m = st.markdown("""
@@ -76,18 +80,17 @@ div.stButton > button:first-child {
     border: #3A7568;
     background: white;
     border-radius: 50%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     border: 2px solid #3A7568;
     width: 70px;
     height: 70px; 
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    z-index: 1;
 }
 </style>""", unsafe_allow_html=True)
-st.button('Open Guide', on_click=click_button,)
+st.button('Open Guide', on_click=click_button)
 
 
 # Function to display words to the left and circles with text to the right
@@ -160,13 +163,6 @@ def gradingTabData(caa_fac, caa_insp, caa_enf, cwa_fac, cwa_insp, cwa_enf, rcra_
 
 
 def gradingTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
 
     # Define the HTML content as a string
     html_content = f"""
@@ -185,13 +181,7 @@ def gradingTabInfo():
 
 
 def highlightTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
+
 
     # Define the HTML content as a string
     html_content = f"""
@@ -246,14 +236,6 @@ def highlightTabData(selected_state, selected_county):
 
 
 def comparisonTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
@@ -283,14 +265,6 @@ def comparisonTabData():
 
 
 def non_complianceTabInfo():
-    # Define the CSS style for the gray rectangle
-    gray_rectangle_style = """
-        background-color: #e6e6e6;
-        padding: 10px;
-        border-radius: 5px;
-        color: black;
-    """
-
     # Define the HTML content as a string
     html_content = f"""
     <div style="{gray_rectangle_style}">
