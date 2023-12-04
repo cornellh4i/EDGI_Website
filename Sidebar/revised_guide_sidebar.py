@@ -3,6 +3,7 @@ import folium
 import pandas as pd
 import numpy as np
 import streamlit as st
+import altair as alt
 from streamlit_folium import folium_static
 from ECHO_modules.ECHO_modules.geographies import states
 
@@ -206,7 +207,7 @@ def highlightTabInfo():
     st.markdown(html_content, unsafe_allow_html=True)
 
 
-def highlightTabData():
+def highlightTabData(selected_state, selected_county):
     # Use st.markdown to render the HTML content
     st.markdown(
         """
