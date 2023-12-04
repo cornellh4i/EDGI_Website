@@ -13,7 +13,6 @@
   top: 100px !important;
 }
 
-/* Used in header.py for nav (navbar) component */
 .navbar {
   position: fixed;
   top: 0px;
@@ -26,7 +25,6 @@
   align-items: center;
 }
 
-/* Used in header.py for 'County Reports' title within navbar */
 .title {
   color: #3D7D71;
   /* EDGI/H1 */
@@ -34,12 +32,16 @@
   font-size: 44px;
   font-style: normal;
   font-weight: 700;
-  line-height: 150%; /* 66px */
+  line-height: 150%;
+  /* 66px */
   letter-spacing: -1.012px;
 }
 
-/* Used in header.py for 'Exit' button within navbar */
-.navbar a, .navbar a:hover, .navbar a:focus, .navbar a:active, .navbar a:visited {
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited {
   text-decoration: none;
   color: #1B7F71;
   text-align: right;
@@ -48,11 +50,12 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; /* 48px */
+  line-height: 150%;
+  /* 48px */
   letter-spacing: -0.736px;
 }
 
-/* FOOTER STYLING */
+* FOOTER STYLING */
 
 /* Used in footer_info.py for anchor tags container */
 .st-emotion-cache-1yycg8b.e1f1d6gn2 {
@@ -78,20 +81,29 @@
 }
 
 /* Used in footer_info.py for anchor tags */
-.st-emotion-cache-1yycg8b.e1f1d6gn2 a, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:active, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:visited {
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:active,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:visited {
   text-decoration: none;
   color: #757575;
   font-size: 22px;
   font-style: normal;
   font-weight: 600;
 }
-.st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus, .st-emotion-cache-1yycg8b.e1f1d6gn2 a:active {
+
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:hover,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:focus,
+.st-emotion-cache-1yycg8b.e1f1d6gn2 a:active {
   color: #1B7F71;
   font-weight: 700;
 }
+
 .st-emotion-cache-1yycg8b.e1f1d6gn2 ul {
   list-style-type: none;
 }
+
 .st-emotion-cache-1yycg8b.e1f1d6gn2 li {
   margin-bottom: 20px;
 }
@@ -105,4 +117,39 @@ h2 {
   font-weight: 700;
   line-height: 150%;
   letter-spacing: -0.92px;
+}
+
+.st-emotion-cache-1avcm0n.ezrtsby2 {
+  height: 0.0% !important;
+}
+
+.st-emotion-cache-ffhzg2 {
+  color: black;
+}
+
+
+/* sidebar adjustment */
+section.st-emotion-cache-1ec6rqw.eczjsme11 {
+  margin-top: 2.5%;
+  min-height: 40%;
+  max-height: 58%;
+}
+
+div.st-emotion-cache-6qob1r.eczjsme3 {
+  height: 100%;
+}
+
+div.folium-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+  height: 940px;
+}
+
+div.st-emotion-cache-16txtl3 {
+  padding-top: 0rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+
+div.st-emotion-cache-27jjz0 {
+  align-items: center;
 }

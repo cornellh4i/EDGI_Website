@@ -8,6 +8,7 @@ import json
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
+
 # Style constants
 UNSELECTED_FILL = "#00000000"
 UNSELECTED_OUTLINE = "black"
@@ -50,7 +51,7 @@ def load_counties_gdf():
     Reads the GeoJSON containing county data and returns a GeoDataFrame with that data
     '''
     # Read counties GeoJSON
-    f = open("data\counties.geojson",)
+    f = open("../data/counties.geojson",)
     data = json.load(f)
 
     # Add state names to each county name in counties.geojson
@@ -67,69 +68,71 @@ def load_counties_gdf():
     return counties_gdf
 
 
-if st.session_state["first_time"]:
-    st.session_state["state_data"] = load_states_gdf()
-    st.session_state["county_data"] = load_counties_gdf()
-    st.session_state["first_time"] = False
+def search_map():
+    if st.session_state["first_time"]:
+        st.session_state["state_data"] = load_states_gdf()
+        st.session_state["county_data"] = load_counties_gdf()
+        st.session_state["first_time"] = False
 
-# Create map
-m = folium.Map(location=[38, -97], zoom_start=4)
+    # Create map
+    m = folium.Map(location=[38, -97], zoom_start=4)
 
-# Add counties to map
-county_geo = folium.GeoJson(
-    st.session_state["county_data"],
-    zoom_on_click=True,
-    name="US Counties",
-    style_function=lambda feature: {
-        "fillColor": UNSELECTED_FILL,
-        "color": UNSELECTED_OUTLINE,
-        "weight": 1,
-        "fillOpacity": 0,
-    },
-    highlight_function=lambda feature: {
-        "fillColor": HIGHLIGHT_FILL,
-        "color": HIGHLIGHT_OUTLINE,
-        "weight": 2,
-        "fillOpacity": 0.2,
-    },
-    tooltip=folium.GeoJsonTooltip(
-        fields=["NAME"], aliases=[""], localize=True
-    ),
-).add_to(m)
+    # Add counties to map
+    county_geo = folium.GeoJson(
+        st.session_state["county_data"],
+        zoom_on_click=True,
+        name="US Counties",
+        style_function=lambda feature: {
+            "fillColor": UNSELECTED_FILL,
+            "color": UNSELECTED_OUTLINE,
+            "weight": 1,
+            "fillOpacity": 0,
+        },
+        highlight_function=lambda feature: {
+            "fillColor": HIGHLIGHT_FILL,
+            "color": HIGHLIGHT_OUTLINE,
+            "weight": 2,
+            "fillOpacity": 0.2,
+        },
+        tooltip=folium.GeoJsonTooltip(
+            fields=["NAME"], aliases=[""], localize=True
+        ),
+    ).add_to(m)
 
-# Add states to map
-state_geo = folium.GeoJson(
-    st.session_state["state_data"],
-    zoom_on_click=True,
-    name="US States",
-    style_function=lambda feature: {
-        "fillColor": UNSELECTED_FILL,
-        "color": UNSELECTED_OUTLINE,
-        "weight": 2,
-        "fillOpacity": 0,
-    },
-    highlight_function=lambda feature: {
-        "fillColor": HIGHLIGHT_FILL,
-        "color": HIGHLIGHT_OUTLINE,
-        "weight": 2,
-        "fillOpacity": 0.2,
-    },
-    tooltip=folium.GeoJsonTooltip(
-        fields=["name"], aliases=[""], localize=True
-    ),
-).add_to(m)
+    # Add states to map
+    state_geo = folium.GeoJson(
+        st.session_state["state_data"],
+        zoom_on_click=True,
+        name="US States",
+        style_function=lambda feature: {
+            "fillColor": UNSELECTED_FILL,
+            "color": UNSELECTED_OUTLINE,
+            "weight": 2,
+            "fillOpacity": 0,
+        },
+        highlight_function=lambda feature: {
+            "fillColor": HIGHLIGHT_FILL,
+            "color": HIGHLIGHT_OUTLINE,
+            "weight": 2,
+            "fillOpacity": 0.2,
+        },
+        tooltip=folium.GeoJsonTooltip(
+            fields=["name"], aliases=[""], localize=True
+        ),
+    ).add_to(m)
 
-# Add county search bar
-county_search = Search(
-    layer=county_geo,
-    geom_type="Polygon",
-    placeholder="Search for a county",
-    collapsed=False,
-    search_label="NAME",
-    weight=3,
-).add_to(m)
+    # Add county search bar
+    county_search = Search(
+        layer=county_geo,
+        geom_type="Polygon",
+        placeholder="Search for a county",
+        collapsed=False,
+        search_label="NAME",
+        weight=3,
+    ).add_to(m)
 
-# Display the map
-folium.LayerControl().add_to(m)
+    # Display the map
+    folium.LayerControl().add_to(m)
 
-st_data = st_folium(m, width=725, returned_objects=[])
+    st_data = st_folium(m, width=725, returned_objects=[])
+search_map()
