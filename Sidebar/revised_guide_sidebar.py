@@ -3,14 +3,118 @@ import folium
 import pandas as pd
 import numpy as np
 import streamlit as st
+
 import altair as alt
 from streamlit_folium import folium_static
 from ECHO_modules.ECHO_modules.geographies import states
 
 
-# Initialize a session state variable that tracks the sidebar state
-if 'sidebar_state' not in st.session_state:
-    st.session_state.sidebar_state = 'expanded'
+def final_sidebar():
+
+        # Initialize a session state variable that tracks the sidebar state
+        if 'sidebar_state' not in st.session_state:
+            st.session_state.sidebar_state = 'expanded'
+
+        # Create a Folium map that is zoomed-in a bit
+        map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
+
+        # Define the HTML template with CSS to make the map full-screen
+        map_html = """
+        <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            min-height: 400px;
+            height: 600px;
+            border: none;
+            position: relative;
+            z-index: 1;
+        }
+        </style>
+        """
+        st.markdown(map_html, unsafe_allow_html=True)
+
+        # Display the map using st_folium
+        folium_static(map)
+
+        # this is for the button
+        if 'button' not in st.session_state:
+            st.session_state.button = False
+
+        # Helper function to open/close the sidebar when the user presses the button
+
+
+        def click_button():
+            st.session_state.button = not st.session_state.button
+
+
+        # The button itself styled
+        m = st.markdown("""
+        <style>
+        div.stButton > button:first-child {
+            color: #3A7568;
+            border: #3A7568;
+            background: white;
+            border-radius: 50%; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #3A7568;
+            width: 70px;
+            height: 70px; 
+            position: relative;
+            z-index: 2;
+        }
+        </style>""", unsafe_allow_html=True)
+        st.button('Open Guide', on_click=click_button,)
+
+
+        # Function to display words to the left and circles with text to the right
+        def display_words_and_circles(word, number):
+            st.write(f'<div style="display: flex; align-items: center;">\
+            <div style="margin-right: 20px;"><h1>{word}</h1></div>\
+            <div style="\
+            width: 60px; \
+            height: 60px; \
+            background-color: #808080; \
+            border-radius: 50%; \
+            display: flex; \
+            align-items: center; \
+            justify-content: center; \
+            color: white; \
+            font-weight: bold; \
+            margin-left: auto; \
+            font-size: 20px;">{number}</div>\
+        </div>', unsafe_allow_html=True)
+
+
+        def violations(per_fac, per_insp, per_enfo):
+            with st.container():
+                display_words_and_circles("Violations per facility", per_fac)
+            with st.container():
+                display_words_and_circles("Violations per inspection", per_insp)
+            with st.container():
+                display_words_and_circles("Violations per enforcement", per_enfo)
+
+
+        def starter_top_info():
+            st.title("How to use")
+
+            # Define your content as a string
+            content = """
+        Zoom in or search to select a county to see county-specific data on violations, inspections, and enforcement actions by the EPA under the:
+        - Clean Air Act (CAA)
+        - Clean Water Act (CWA)
+        - Resource Conservation and Recovery Act (RCRA)\n
+        You can also click on a state to view its counties, and click on a county to view the data.\n
+        Click on the circles within a county to zoom in and locate specific facilities. Hover over the facility’s circle to access its detailed ECHO report.
+        """
+
 
 # Streamlit set_page_config
 st.set_page_config(layout="wide")
@@ -392,3 +496,4 @@ if st.session_state.button:
     with st.sidebar:
         # fillSideBar() #starter
         fillSideBar(selected_county, selected_state, get_number_facs(selected_state, selected_county, 'CAA'), get_number_facs(selected_state, selected_county, 'CWA'), get_number_facs(selected_state, selected_county, 'RCRA'))
+
