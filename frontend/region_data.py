@@ -24,8 +24,7 @@ except git.GitCommandError:
 
 from EEW_County_ReportCards.Region import Region
 from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
-from ECHO_modules.ECHO_modules.geographies import states
-
+from ECHO_modules.geographies import states
 
 
 

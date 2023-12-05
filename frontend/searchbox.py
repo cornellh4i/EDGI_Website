@@ -109,6 +109,8 @@ def create_searchbox():
     selected_county = user_selection[:comma_pos]
     county_name = format_county(selected_county)
 
+    return selected_state, selected_county
+
     # handle errors with empty columns
     # try:
     #     st.markdown('### Get Facilities in Selected County')
