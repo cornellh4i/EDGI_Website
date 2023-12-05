@@ -6,6 +6,7 @@ from ECHO_modules.get_data import get_echo_data # This function retrieves data f
 from ECHO_modules.get_data import get_spatial_data # This function will help us get county boundaries
 from ECHO_modules.geographies import spatial_tables, fips # Import for mapping purposes
 import ssl
+import streamlit as st
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # Styles for States ("other") and selected regions (e.g. Zip Codes) - "this"
@@ -66,6 +67,7 @@ def bivariate_map(regions, points, bounds=None, no_text=False):
     no_text errors can be managed
     '''
     m = folium.Map()  
+
 
     # Show the region(s
     s = folium.GeoJson(

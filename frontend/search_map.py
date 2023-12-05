@@ -28,10 +28,11 @@ def convert_state_fp(code):
 if "first_time" not in st.session_state: # If this is the first time loading the script, track that
     st.session_state["first_time"] = True 
 if "state_data" not in st.session_state: # If we haven't loaded state data before, get ready to
-	  st.session_state["state_data"] = None
+	st.session_state["state_data"] = None
 if "county_data" not in st.session_state: # If we haven't loaded state data before, get ready to
-	  st.session_state["county_data"] = None
-        
+	st.session_state["county_data"] = None
+if "center" not in st.session_state: # If we haven't gotten center info before, get ready to
+    st.session_state["center"] = None
 
 @st.cache_data
 def load_states_gdf():
@@ -122,14 +123,14 @@ def search_map():
     ).add_to(m)
 
     # Add county search bar
-    county_search = Search(
-        layer=county_geo,
-        geom_type="Polygon",
-        placeholder="Search for a county",
-        collapsed=False,
-        search_label="NAME",
-        weight=3,
-    ).add_to(m)
+    # county_search = Search(
+    #     layer=county_geo,
+    #     geom_type="Polygon",
+    #     placeholder="Search for a county",
+    #     collapsed=False,
+    #     search_label="NAME",
+    #     weight=3,
+    # ).add_to(m)
 
     # Display the map
     folium.LayerControl().add_to(m)
