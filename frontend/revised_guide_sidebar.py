@@ -140,6 +140,7 @@ def data_sidebar(selected_state, selected_county):
     map_html = """
     <style>
     .main > div {
+                padding-top: 8rem;
                 padding-left: 0rem;
                 padding-right: 0rem;
             }
