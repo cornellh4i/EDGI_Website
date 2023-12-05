@@ -17,7 +17,8 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  background-color: #FFF;
+  margin-bottom: 100px;
+  background-color: #FDFDFD;
   display: flex;
   width: 100%;
   padding: 12px 64px;
@@ -55,7 +56,10 @@ a:visited {
   letter-spacing: -0.736px;
 }
 
-* FOOTER STYLING */
+/* FOOTER STYLING */
+
+
+/* FOOTER STYLING */
 
 /* Used in footer_info.py for anchor tags container */
 .st-emotion-cache-1yycg8b.e1f1d6gn2 {
@@ -119,37 +123,31 @@ h2 {
   letter-spacing: -0.92px;
 }
 
-.st-emotion-cache-1avcm0n.ezrtsby2 {
-  height: 0.0% !important;
+/* Used in footer_info.py for paragraph text */
+.description,
+.list-text {
+  color: var(--black, #101010);
+  font-family: Open Sans;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  /* 33px */
+  letter-spacing: -0.506px;
 }
 
-.st-emotion-cache-ffhzg2 {
-  color: black;
+/* Used in footer_info.py for sub-headings */
+.sub-heading {
+  color: #B3611E;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: -0.644px;
 }
 
-
-/* sidebar adjustment */
-section.st-emotion-cache-1ec6rqw.eczjsme11 {
-  margin-top: 2.5%;
-  min-height: 40%;
-  max-height: 58%;
-}
-
-div.st-emotion-cache-6qob1r.eczjsme3 {
-  height: 100%;
-}
-
-div.folium-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
-  height: 940px;
-}
-
-div.st-emotion-cache-16txtl3 {
-  padding-top: 0rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-
-div.st-emotion-cache-27jjz0 {
-  align-items: center;
+/* Used in footer_info.py for bolded text */
+.bold-text {
+  font-style: bold;
 }

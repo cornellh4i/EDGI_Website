@@ -2,14 +2,15 @@ import streamlit as st
 
 def header():
 
+    
     # Connect file to style.css
     with open("../css/style.css") as f:
         st.markdown(
             f"""<style>{f.read()}</style>""",
             unsafe_allow_html=True,
         )
-
-    # Disable default navbar
+   
+       # Disable default navbar
     st.markdown("""
         <style>
             .reportview-container {
@@ -40,4 +41,4 @@ def header():
         </nav>
     """, unsafe_allow_html=True)
 
-
+    

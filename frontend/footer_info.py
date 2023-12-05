@@ -65,22 +65,83 @@ def footer_info():
             </div>
         """, unsafe_allow_html=True)
 
+
+        st.image('../images/regulated_facility.png', use_column_width=True)
         st.header('About the EPA Data and its Limitations')
-        st.write('''
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Amet mauris commodo quis imperdiet. In metus vulputate eu scelerisque. Facilisis gravida neque convallis a cras semper. Quis vel eros donec ac odio. Posuere urna nec tincidunt praesent semper feugiat nibh sed. Vitae et leo duis ut. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Scelerisque varius morbi enim nunc faucibus a. Eget velit aliquet sagittis id consectetur purus ut. Massa eget egestas purus viverra. Libero justo laoreet sit amet cursus sit. Nibh nisl condimentum id venenatis a condimentum vitae sapien.
-        ''')
-
+        st.markdown(f"""
+            <div class="about_epa_data">
+            <p class="description">
+                The data in this report is from EPA’s publicly-available ECHO database that compiles information from a number of distinct state and federal sources. However, poor reporting by states and inconsistent reporting schemes result in data gaps and inaccuracies. EPA lists numerous specific issues on its “Known Data Problems” page. In addition, EPA notes that data on inspections, violations, and enforcement actions prior to 2001 should be treated as incomplete and unreliable. For that reason, we have only tracked data back to 2001. In addition to many data entry errors – too numerous to list here – there are several major problems with ECHO:
+            </p>
+            <ul class="description-list">
+                <li class="list-text">
+                There is serious under-recording and under-reporting of CAA violations at the state level. Most CAA violations – perhaps 85% or more – do not make it into ECHO. Violation data is therefore inaccurate and misleading: <span class="bold-text">states which report the fewest violations may be states whose recording and reporting of violations is actually the poorest.</span>
+                </li>
+                <li class="list-text">
+                Although there is no specific information about the quality of data on RCRA violations, it is likely that this program, like the CAA, has serious reporting problems. Therefore, RCRA violations data should also be considered inaccurate and potentially misleading. The key difference between these and the CWA is that the CWA entails mandatory electronic self-reporting.
+                </li>
+                <li class="list-text">
+                ECHO does not record how many regulated facilities there were for programs in previous years. Therefore, we cannot calculate the number of inspections, enforcement actions, and violations per regulated facility before 2022.
+                </li>
+            </ul>
+            <h2 class="sub-heading">
+                Data reliability coding
+            </h2>
+            <p class="description">
+                In this report, we have divided data issues into three categories, using transparencies in graphs as well as subtitles to indicate data reliability and completeness. See the table below:
+            </p>
+            </div>
+        """, unsafe_allow_html=True)
+        st.image('../images/data_reliability_coding.png', use_column_width=True)
+        st.markdown(f"""
+            <div class="about_epa_data">
+            <h2 class="sub-heading">
+                Notes on 2023 data
+            </h2>
+            <p class="description">
+                We do not include data from 2023 because it is be strongly influenced by the EPA’s decision to suspend, from March through August, pollution monitoring requirements for industries that claim to have been impacted by COVID-19. EDGI’s report on this policy “More Permission to Pollute” found that, despite relatively few facilities claiming the COVID exemption, a much larger proportion of facilities are still failing to report environmental data.
+            </p>
+            </div>
+        """, unsafe_allow_html=True)
         st.header('Links to Data')
-        st.write('''
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Amet mauris commodo quis imperdiet. In metus vulputate eu scelerisque. Facilisis gravida neque convallis a cras semper. Quis vel eros donec ac odio. Posuere urna nec tincidunt praesent semper feugiat nibh sed. Vitae et leo duis ut. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Scelerisque varius morbi enim nunc faucibus a. Eget velit aliquet sagittis id consectetur purus ut. Massa eget egestas purus viverra. Libero justo laoreet sit amet cursus sit. Nibh nisl condimentum id venenatis a condimentum vitae sapien.
-        ''')
-
+        st.markdown(f"""
+            <div class="links_to_data">
+            <h2 class="sub-heading">
+                Useful Links
+            </h2>
+            <p class="description">
+                This EEW project aims to make EPA data more directly accessible to the public and their representatives. With the goal of reaching the Representatives and Senators who oversee the EPA, EEW has made report cards for the 76 Senators and House Representatives that sit on the House Energy & Commerce Committee and the Senate Environment & Public Works Committee, as these committees are responsible for EPA oversight. By providing a novel look at the chronic state of non-compliance in their states and districts, we hope to provide these key representatives with the information they need to evaluate the state of environmental law compliance and enforcement in their communities so they might more effectively hold EPA accountable
+            </p>
+            </div>
+        """, unsafe_allow_html=True)
         st.header('About the Authors')
-        st.write('''
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Amet mauris commodo quis imperdiet. In metus vulputate eu scelerisque. Facilisis gravida neque convallis a cras semper. Quis vel eros donec ac odio. Posuere urna nec tincidunt praesent semper feugiat nibh sed. Vitae et leo duis ut. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Scelerisque varius morbi enim nunc faucibus a. Eget velit aliquet sagittis id consectetur purus ut. Massa eget egestas purus viverra. Libero justo laoreet sit amet cursus sit. Nibh nisl condimentum id venenatis a condimentum vitae sapien.
-        ''')
-
+        st.markdown(f"""
+            <div class="about_the_authors">
+            <h2 class="sub-heading">
+                About EEW
+            </h2>
+            <p class="description">
+                Environmental Enforcement Watch (EEW) is a collaborative project across working groups of the Environmental Data and Governance Initiative (EDGI). The EEW project builds on EDGI’s 2019 Sheep in the Closet Report that documents large declines in EPA enforcement of environmental laws. This project uses data from EPA’s ECHO database, revealing how useful ECHO could be for communities to track pollution and EPA responses in their areas. However, it also reveals the inaccessibility of ECHO for non-specialists, and major omissions, errors, and confusions present in the data itself (see page 10). EEW aims to highlight gaps and inadequacies in the enforcement of environmental laws and to help investigate whether EPA is fulfilling its congressionally-mandated duty to enforce environmental laws. EEW’s data analysis is conducted using open source and publicly available data using Jupyter Notebooks developed by EDGI members
+            </p>
+            <h2 class="sub-heading">
+                About this Project
+            </h2>
+            <p class="description">
+                This EEW project aims to make EPA data more directly accessible to the public and their representatives. With the goal of reaching the Representatives and Senators who oversee the EPA, EEW has made report cards for the 76 Senators and House Representatives that sit on the House Energy & Commerce Committee and the Senate Environment & Public Works Committee, as these committees are responsible for EPA oversight. By providing a novel look at the chronic state of non-compliance in their states and districts, we hope to provide these key representatives with the information they need to evaluate the state of environmental law compliance and enforcement in their communities so they might more effectively hold EPA accountable
+            </p>
+            </div>
+        """, unsafe_allow_html=True)
         st.header('About EDGI')
-        st.write('''
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Amet mauris commodo quis imperdiet. In metus vulputate eu scelerisque. Facilisis gravida neque convallis a cras semper. Quis vel eros donec ac odio. Posuere urna nec tincidunt praesent semper feugiat nibh sed. Vitae et leo duis ut. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Scelerisque varius morbi enim nunc faucibus a. Eget velit aliquet sagittis id consectetur purus ut. Massa eget egestas purus viverra. Libero justo laoreet sit amet cursus sit. Nibh nisl condimentum id venenatis a condimentum vitae sapien.
-        ''')
+        st.markdown(f"""
+            <div class="about_edgi">
+            <p class="description">
+                EDGI is an international network of over 175 members from more than 80 different academic institutions and nonprofits, comprised foremost by grassroots volunteer efforts. Since 2016, EDGI has served as a preeminent watchdog group for federal environmental data, generating international effort to duplicate and monitor repositories of public data that are vital to environmental health research and knowledge. EDGI’s work has been widely acknowledged, leading to EDGI testifying before Congress on declines in EPA enforcement, and hundreds of mentions in leading national and international media such as The New York Times,The Washington Post, Vice News, and CNN. For more about our work, read our 2019 Annual Report and 2020 Annual Report. For more on EDGI see our website.
+            </p>
+            </div>
+        """, unsafe_allow_html=True
+
+        )
+
+
+
+

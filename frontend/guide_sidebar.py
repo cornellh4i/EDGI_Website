@@ -6,8 +6,6 @@ import streamlit as st
 from streamlit_folium import folium_static
 
 def sidebar():
-    # Streamlit set_page_config
-    # st.set_page_config(layout="wide")
 
     # Initialize a session state variable that tracks the sidebar state
     if 'sidebar_state' not in st.session_state:
@@ -60,8 +58,8 @@ def sidebar():
         border: 2px solid #3A7568;
         width: 70px;
         height: 70px; 
-        position: absolute;
-        bottom: 50px;
+        position: relative;
+        bottom: 120px;
         left: 20px;
         z-index: 1;
     }
