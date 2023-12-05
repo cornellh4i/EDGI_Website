@@ -133,23 +133,38 @@ user_selection = st.selectbox("", county_list, index= None, placeholder="Search 
 user_selection = str(user_selection)
 comma_pos = user_selection.find(',')
 selected_state = user_selection[comma_pos + 2:]
-selected_county = user_selection[:comma_pos].split(" ")
-for countyName in range(len(selected_county)):
-      selected_county[countyName] = selected_county[countyName][0] + (selected_county[countyName][1:]).lower() + " "
-selected_county = "".join(str(l) for l in selected_county)[:-1]
+selected_county = user_selection[:comma_pos]
 
-if len(user_selection) > 0:
+if user_selection != "None":
     f = open("../data/uscounties.csv")
     df = pd.read_csv(f)
-    lat = df[(df["county_ascii"] == selected_county) & (df["state_id"] == selected_state)]["lat"]
-    st.write((df["county_ascii"] == selected_county) & (df["state_id"] == selected_state))
-    st.write(df["state_id"] == selected_state)
-    st.write(lat)
-    lng = df[(df["county"] == "".join(selected_county)) & df["state_id"] == selected_state]["lng"]
-    st.write(lng)
-
+    lat = df[(df["county_ascii"].str.upper() == selected_county) & (df["state_id"] == selected_state)]["lat"]
+    lng = df[(df["county_ascii"].str.upper() == selected_county) & (df["state_id"] == selected_state)]["lng"]
+    m2 = folium.Map(location=[float(lat.values[0]), float(lng.values[0])])
+    st_data = st_folium(m2, width=725, returned_objects=[])
 
 # folium.Marker([float(lat), float(lng)]).add_to(m)
+
+# county_search = folium.GeoJson(
+#     st.session_state["county_data"],
+#     zoom_on_click=True,
+#     # data=selected_county,
+#         style_function=lambda feature: {
+#         "fillColor": UNSELECTED_FILL,
+#         "color": UNSELECTED_OUTLINE,
+#         "weight": 3,
+#         "fillOpacity": 0,
+#     },
+#     highlight_function=lambda feature: {
+#         "fillColor": HIGHLIGHT_FILL,
+#         "color": HIGHLIGHT_OUTLINE,
+#         "weight": 3,
+#         "fillOpacity": 0.2,
+#     },
+#     #     tooltip=folium.GeoJsonTooltip(
+#     #     fields=[selected_county], aliases=[""], localize=True
+#     # ),
+# ).add_to(m)
 
 
 # Display the map
