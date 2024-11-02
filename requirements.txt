@@ -13,3 +13,4 @@ geojson
 seaborn
 requests
 ECHO_modules
+git
