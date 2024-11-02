@@ -4,8 +4,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-from EEW_County_ReportCards.Region import Region
-from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
+from Region import Region
+from AllPrograms_util import get_region_rowid
 from ECHO_modules.geographies import states
 
 def get_sidebar_grades(state_name, county_name, types):
