@@ -346,8 +346,8 @@ def data_sidebar(selected_state, selected_county):
         html_content = f"""
         <div style="{gray_rectangle_style}">
             <ul>
-                <li>These two charts show how inspections and violations in this state compare to the national average per 1000 facilities in 2022</li>
-                <li>We use data from 2022 as it was the most recent full year and the ECHO database only reports currently active facilities</li>
+                <li>These two charts show how inspections and violations in this state compare to the national average per 1000 facilities in 2023</li>
+                <li>We use data from 2023 as it was the most recent full year and the ECHO database only reports currently active facilities</li>
                 <li>To enable comparison across locations with a differing number of active facilities, we standardize the comparison to a value per 1000 facilities, proportionally adjusting the data if there are more or less than 1000 facilities in a district or state</li>
             </ul>
         </div>
@@ -358,12 +358,12 @@ def data_sidebar(selected_state, selected_county):
 
 
     def comparisonTabData():
-        st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2022)</h2>",
+        st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2023)</h2>",
                     unsafe_allow_html=True)
         # this is where graph for CAA Violators
         chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
         st.bar_chart(chart_data)
-        st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2022</h2>",
+        st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2023</h2>",
                     unsafe_allow_html=True)
         # this is where graph for CWA Violators
         chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
