@@ -1,26 +1,20 @@
 import pdb
-import git
 import os
 import streamlit as st
 import pandas as pd
 import altair as alt
 
-
+"""
 try:
     repo_link = "https://github.com/edgi-govdata-archiving/EEW_County_ReportCards"
     # st.write("yippee")
     repo = git.Repo.clone_from(repo_link, "EEW_County_ReportCards")
+    st.write(repo)
 except git.GitCommandError:
     g = git.cmd.Git("EEW_County_ReportCards")
+    print(g)
     g.pull()
-
-try:
-    repo_link = "https://github.com/edgi-govdata-archiving/ECHO_modules"
-    # st.write("yippee")
-    repo = git.Repo.clone_from(repo_link, "ECHO_Modules")
-except git.GitCommandError:
-    g = git.cmd.Git("ECHO_Modules")
-    g.pull()
+"""
 
 from EEW_County_ReportCards.Region import Region
 from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
@@ -35,7 +29,7 @@ def get_sidebar_grades(state_name, county_name, types):
         region = Region(type='County', state=state, value=row[1].county,
                         programs=programs)
         df = region.get_per_1000(
-            type=types, region='County', year=2022)
+            type=types, region='County')
         df.insert(0, 'State', state)
         df.insert(1, 'County', row[1].county)
         return df
@@ -67,7 +61,7 @@ def get_number_facs(state, county, program):
     local_num_facs = local_region.get_active_facilities(program)
     return local_num_facs
 
-def get_graphs(county,state, data_type):
+def get_graphs(county, state, data_type):
     def create_df( data_type, y_field, program):
         # create a local region object
         local_region = Region(type='County', state=state, value=county, programs=program)
@@ -78,7 +72,8 @@ def get_graphs(county,state, data_type):
         # display the data_type
         # st.write(data_type)
         # create datagframe for the county, of the specified program and year
-        local_events = local_region.get_events( data_type, program, 2022 )
+        
+        local_events = local_region.get_events(data_type, program)
         local_events[county ] = local_events[y_field]/local_num_facs
         df_events = local_events[['Year',county]]
         return df_events
