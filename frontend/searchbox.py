@@ -13,8 +13,7 @@ def load_county_list():
     Load data from state_counties_csv on first time running the app
     '''
     # Get list of counties in the format COUNTY, STATE
-    url = "https://raw.githubusercontent.com/edgi-govdata-archiving/"
-    url += "ECHO_modules/packaging/data/state_counties_corrected.csv"
+    url = "https://github.com/edgi-govdata-archiving/ECHO_modules/raw/refs/heads/main/data/state_counties_corrected.csv"
     all_counties = pd.read_csv( url )
     # Data pre-processing - make sure the only states in the list are real states, but comparing with the fips data
     all_counties = all_counties.loc[all_counties["FAC_STATE"].isin(state_abbreviations)]
