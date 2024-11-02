@@ -4,29 +4,9 @@ import os
 import streamlit as st
 import pandas as pd
 
-
-try:
-    repo_link = "https://github.com/edgi-govdata-archiving/EEW_County_ReportCards"
-    st.write("yippee")
-    repo = git.Repo.clone_from(repo_link, "EEW_County_ReportCards")
-except git.GitCommandError:
-    g = git.cmd.Git("EEW_County_ReportCards")
-    g.pull()
-    st.write("yippee2")
-
-try:
-    repo_link = "https://github.com/edgi-govdata-archiving/ECHO_modules"
-    st.write("yippee")
-    repo = git.Repo.clone_from(repo_link, "ECHO_Modules")
-except git.GitCommandError:
-    g = git.cmd.Git("ECHO_Modules")
-    g.pull()
-    st.write("yippee2")
-
 from EEW_County_ReportCards.Region import Region
 from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
 from ECHO_modules.ECHO_modules.geographies import states
-
 
 programs = ['CAA', 'CWA', 'RCRA']
 this_state = 'NY'
