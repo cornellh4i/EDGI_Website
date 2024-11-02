@@ -12,4 +12,4 @@ geopandas
 geojson
 seaborn
 requests
-git+https://github.com/edgi-govdata-archiving/ECHO_modules
+ECHO_modules
