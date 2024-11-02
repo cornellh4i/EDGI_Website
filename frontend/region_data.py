@@ -4,23 +4,9 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-"""
-try:
-    repo_link = "https://github.com/edgi-govdata-archiving/EEW_County_ReportCards"
-    # st.write("yippee")
-    repo = git.Repo.clone_from(repo_link, "EEW_County_ReportCards")
-    st.write(repo)
-except git.GitCommandError:
-    g = git.cmd.Git("EEW_County_ReportCards")
-    print(g)
-    g.pull()
-"""
-
 from EEW_County_ReportCards.Region import Region
 from EEW_County_ReportCards.AllPrograms_util import get_region_rowid
 from ECHO_modules.geographies import states
-
-
 
 def get_sidebar_grades(state_name, county_name, types):
 
