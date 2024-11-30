@@ -6,7 +6,7 @@ from streamlit_folium import folium_static
 
 def footer_info():
 # Connect file to style.css
-    with open("css/style.css") as f:
+    with open("../css/style.css") as f:
         st.markdown(
             f"""<style>{f.read()}</style>""",
             unsafe_allow_html=True,
@@ -66,7 +66,7 @@ def footer_info():
         """, unsafe_allow_html=True)
 
 
-        st.image('images/regulated_facility.png', use_column_width=True)
+        st.image('../images/regulated_facility.png', use_column_width=True)
         st.header('About the EPA Data and its Limitations')
         st.markdown(f"""
             <div class="about_epa_data">
@@ -92,7 +92,7 @@ def footer_info():
             </p>
             </div>
         """, unsafe_allow_html=True)
-        st.image('images/data_reliability_coding.png', use_column_width=True)
+        st.image('../images/data_reliability_coding.png', use_column_width=True)
         st.markdown(f"""
             <div class="about_epa_data">
             <h2 class="sub-heading">

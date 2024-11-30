@@ -6,7 +6,7 @@ import streamlit as st
 
 import altair as alt
 from streamlit_folium import folium_static
-from ECHO_modules.geographies import states
+# from ..ECHO_modules.ECHO_modules.geographies import states
 
 
 def final_sidebar():

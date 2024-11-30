@@ -6,7 +6,7 @@ import os.path
 import requests
 import zipfile
 import sqlite3
-from ECHO_modules.geographies import fips
+from ECHO_modules.ECHO_modules.geographies import fips
 
 def set_focus_year(db, year):
     conn = sqlite3.connect(db)

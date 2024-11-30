@@ -2,9 +2,9 @@ import pandas as pd
 import folium
 from folium.plugins import FastMarkerCluster
 from streamlit_folium import st_folium
-from ECHO_modules.get_data import get_echo_data # This function retrieves data from the SBU database
-from ECHO_modules.get_data import get_spatial_data # This function will help us get county boundaries
-from ECHO_modules.geographies import spatial_tables, fips # Import for mapping purposes
+from ECHO_modules.ECHO_modules.get_data import get_echo_data # This function retrieves data from the SBU database
+from ECHO_modules.ECHO_modules.get_data import get_spatial_data # This function will help us get county boundaries
+from ECHO_modules.ECHO_modules.geographies import spatial_tables, fips # Import for mapping purposes
 import ssl
 import streamlit as st
 ssl._create_default_https_context = ssl._create_unverified_context
