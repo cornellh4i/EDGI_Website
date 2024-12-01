@@ -33,12 +33,20 @@ def get_sidebar_grades(state_name, county_name, types):
 
     result = {}
 
-    result['CAA'] = int(all_df[(all_df['County'] == county_name) & (
-        all_df['Program'] == 'CAA')]['Per1000'].values[0])
-    result['CWA'] = int(all_df[(all_df['County'] == county_name) & (
-        all_df['Program'] == 'CWA')]['Per1000'].values[0])
-    result['RCRA'] = int(all_df[(all_df['County'] == county_name) & (
-        all_df['Program'] == 'RCRA')]['Per1000'].values[0])
+    try:
+        result['CAA'] = int(all_df[(all_df['County'] == county_name) & (all_df['Program'] == 'CAA')]['Per1000'].values[0])
+    except (IndexError):
+        result['CAA'] = "N/A"
+
+    try:
+        result['CWA'] = int(all_df[(all_df['County'] == county_name) & (all_df['Program'] == 'CWA')]['Per1000'].values[0])
+    except (IndexError):
+        result['CWA'] = "N/A"
+
+    try:
+        result['RCRA'] = int(all_df[(all_df['County'] == county_name) & (all_df['Program'] == 'RCRA')]['Per1000'].values[0])
+    except (IndexError):
+        result['RCRA'] = "N/A"
     return result
 
 def get_number_facs(state, county, program):
@@ -75,6 +83,6 @@ def get_graphs(county, state, data_type):
     return sums_df
 
 
-get_graphs("ALBANY", "NY", "inspections")
+# get_graphs("ALBANY", "NY", "inspections")
     
 

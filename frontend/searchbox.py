@@ -45,8 +45,10 @@ def orig_searchbox():
     # Let user select county
     user_selection = st.selectbox(
         'Search for a county',
-        st.session_state["county_list"]
+        st.session_state["county_list"],
+        index=-1
     )
+    
 
     comma_pos = user_selection.find(',')
     # Extract state and county from user's selection
@@ -84,30 +86,40 @@ def orig_searchbox():
 def create_searchbox():
     ssl._create_default_https_context = ssl._create_unverified_context
 
-    # Create some session state variables to track user interaction
-    if "first_time" not in st.session_state: # If this is the first time loading the script, track that
+    if "first_time" not in st.session_state:  # If this is the first time loading the script, track that
         st.session_state["first_time"] = True 
-    if "county_list" not in st.session_state: # If we haven't loaded county names before, get ready to
+    if "county_list" not in st.session_state:  # If we haven't loaded county names before, get ready to
         st.session_state["county_list"] = None
 
-    ## Only load counties if this is the first run through of the script
+    # Only load counties if this is the first run through of the script
     if st.session_state["first_time"]:
         st.session_state["county_list"] = load_county_list()
         st.session_state["first_time"] = False
 
     # Let user select county
-    user_selection = st.selectbox(
-        'Search for a county',
-        st.session_state["county_list"]
-    )
+    if st.session_state["first_time"]:
+        # For the first time, create an empty selection by defaulting the user_selection to None
+        user_selection = st.selectbox(
+            'Search for a county',
+            st.session_state["county_list"],
+            index=None  # This ensures no default value is selected
+        )
+    else:
+        # After the first time, allow normal selection
+        user_selection = st.selectbox(
+            'Search for a county',
+            st.session_state["county_list"]
+        )
 
-    comma_pos = user_selection.find(',')
-    # Extract state and county from user's selection
-    selected_state = user_selection[comma_pos + 2:]
-    selected_county = user_selection[:comma_pos]
-    county_name = format_county(selected_county)
+    if user_selection:
+        comma_pos = user_selection.find(',')
+        # Extract state and county from user's selection
+        selected_state = user_selection[comma_pos + 2:]
+        selected_county = user_selection[:comma_pos]
 
-    return selected_state, selected_county
+        return selected_state, selected_county
+    else:
+        return "", ""
 
     # handle errors with empty columns
     # try:
