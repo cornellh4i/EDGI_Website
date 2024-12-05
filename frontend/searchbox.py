@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from ECHO_modules.ECHO_modules.geographies import states as state_abbreviations # Import US state abbreviations for help
+from ECHO_modules.geographies import states as state_abbreviations # Import US state abbreviations for help
 from searchbox_funcs import bivariate_map, format_county, get_facilities, get_county_boundaries, get_justice_data
 import ssl
 
@@ -62,6 +62,7 @@ def orig_searchbox():
         fac = get_facilities(selected_county, selected_state)
         # Display facilities
         fac
+        print("facilities")
 
         st.markdown('### Get County Boundaries')
         county, state = get_county_boundaries(county_name, selected_state)

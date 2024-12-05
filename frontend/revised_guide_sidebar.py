@@ -5,8 +5,8 @@ import numpy as np
 import streamlit as st
 
 import altair as alt
-from streamlit_folium import folium_static
-from ECHO_modules.ECHO_modules.geographies import states
+from streamlit_folium import folium_static, st_folium
+from ECHO_modules.geographies import states
 
 
 # def final_sidebar():
@@ -118,7 +118,6 @@ url = "https://raw.githubusercontent.com/ericnost/EDGI_CountyReportCards/refs/he
 df = pd.read_csv(url)
 
 def data_sidebar(selected_state, selected_county):
-
     # selected_state = st.selectbox("States", states)
 
     # # url stores the link in which we are getting county names from
@@ -191,7 +190,7 @@ def data_sidebar(selected_state, selected_county):
     st.markdown(map_html, unsafe_allow_html=True)
 
     # Display the map using st_folium
-    folium_static(map)
+    folium_static(map, width = 1200, height = 600)
 
     # this is for the button
     if 'button' not in st.session_state:
@@ -400,7 +399,7 @@ def data_sidebar(selected_state, selected_county):
         title="Facility Enforcements"
     )
         st.altair_chart(enforcements_chart, use_container_width=True)
-        st.bar_chart(chart_data_enforcements, x = 'Year', y = 'enforcements')
+        #st.bar_chart(chart_data_enforcements, x = 'Year', y = 'enforcements')
 
 
     def comparisonTabInfo():
