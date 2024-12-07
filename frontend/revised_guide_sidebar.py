@@ -5,119 +5,119 @@ import numpy as np
 import streamlit as st
 
 import altair as alt
-from streamlit_folium import folium_static
+from streamlit_folium import folium_static, st_folium
 from ECHO_modules.geographies import states
 
 
-def final_sidebar():
+# def final_sidebar():
 
-        # Initialize a session state variable that tracks the sidebar state
-        if 'sidebar_state' not in st.session_state:
-            st.session_state.sidebar_state = 'expanded'
+#         # Initialize a session state variable that tracks the sidebar state
+#         if 'sidebar_state' not in st.session_state:
+#             st.session_state.sidebar_state = 'expanded'
 
-        # Create a Folium map that is zoomed-in a bit
-        map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
+#         # Create a Folium map that is zoomed-in a bit
+#         map = folium.Map(location=[40, -95], zoom_start=4, use_container_width=False)
 
-        # Define the HTML template with CSS to make the map full-screen
-        map_html = """
-        <style>
-        body {
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-        }
-        iframe {
-            width: 100%;
-            min-height: 400px;
-            height: 600px;
-            border: none;
-            position: relative;
-            z-index: 1;
-        }
-        </style>
-        """
-        st.markdown(map_html, unsafe_allow_html=True)
+#         # Define the HTML template with CSS to make the map full-screen
+#         map_html = """
+#         <style>
+#         body {
+#             padding: 0;
+#             margin: 0;
+#             overflow: hidden;
+#         }
+#         iframe {
+#             width: 100%;
+#             min-height: 400px;
+#             height: 600px;
+#             border: none;
+#             position: relative;
+#             z-index: 1;
+#         }
+#         </style>
+#         """
+#         st.markdown(map_html, unsafe_allow_html=True)
 
-        # Display the map using st_folium
-        folium_static(map)
+#         # Display the map using st_folium
+#         folium_static(map)
 
-        # this is for the button
-        if 'button' not in st.session_state:
-            st.session_state.button = False
+#         # this is for the button
+#         if 'button' not in st.session_state:
+#             st.session_state.button = False
 
-        # Helper function to open/close the sidebar when the user presses the button
-
-
-        def click_button():
-            st.session_state.button = not st.session_state.button
+#         # Helper function to open/close the sidebar when the user presses the button
 
 
-        # The button itself styled
-        m = st.markdown("""
-        <style>
-        div.stButton > button:first-child {
-            color: #3A7568;
-            border: #3A7568;
-            background: white;
-            border-radius: 50%; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #3A7568;
-            width: 70px;
-            height: 70px; 
-            position: relative;
-            z-index: 2;
-        }
-        </style>""", unsafe_allow_html=True)
-        st.button('Open Guide', on_click=click_button,)
+#         def click_button():
+#             st.session_state.button = not st.session_state.button
 
 
-        # Function to display words to the left and circles with text to the right
-        def display_words_and_circles(word, number):
-            st.write(f'<div style="display: flex; align-items: center;">\
-            <div style="margin-right: 20px;"><h1>{word}</h1></div>\
-            <div style="\
-            width: 60px; \
-            height: 60px; \
-            background-color: #808080; \
-            border-radius: 50%; \
-            display: flex; \
-            align-items: center; \
-            justify-content: center; \
-            color: white; \
-            font-weight: bold; \
-            margin-left: auto; \
-            font-size: 20px;">{number}</div>\
-        </div>', unsafe_allow_html=True)
+#         # The button itself styled
+#         m = st.markdown("""
+#         <style>
+#         div.stButton > button:first-child {
+#             color: #3A7568;
+#             border: #3A7568;
+#             background: white;
+#             border-radius: 50%; 
+#             display: flex;
+#             flex-direction: column;
+#             justify-content: center;
+#             align-items: center;
+#             border: 2px solid #3A7568;
+#             width: 70px;
+#             height: 70px; 
+#             position: relative;
+#             z-index: 2;
+#         }
+#         </style>""", unsafe_allow_html=True)
+#         st.button('Open Guide', on_click=click_button,)
 
 
-        def violations(per_fac, per_insp, per_enfo):
-            with st.container():
-                display_words_and_circles("Violations per facility", per_fac)
-            with st.container():
-                display_words_and_circles("Violations per inspection", per_insp)
-            with st.container():
-                display_words_and_circles("Violations per enforcement", per_enfo)
+#         # Function to display words to the left and circles with text to the right
+#         def display_words_and_circles(word, number):
+#             st.write(f'<div style="display: flex; align-items: center;">\
+#             <div style="margin-right: 20px;"><h1>{word}</h1></div>\
+#             <div style="\
+#             width: 60px; \
+#             height: 60px; \
+#             background-color: #808080; \
+#             border-radius: 50%; \
+#             display: flex; \
+#             align-items: center; \
+#             justify-content: center; \
+#             color: white; \
+#             font-weight: bold; \
+#             margin-left: auto; \
+#             font-size: 20px;">{number}</div>\
+#         </div>', unsafe_allow_html=True)
 
 
-        def starter_top_info():
-            st.title("How to use")
+#         def violations(per_fac, per_insp, per_enfo):
+#             with st.container():
+#                 display_words_and_circles("Violations per facility", per_fac)
+#             with st.container():
+#                 display_words_and_circles("Violations per inspection", per_insp)
+#             with st.container():
+#                 display_words_and_circles("Violations per enforcement", per_enfo)
 
-            # Define your content as a string
-            content = """
-        Zoom in or search to select a county to see county-specific data on violations, inspections, and enforcement actions by the EPA under the:
-        - Clean Air Act (CAA)
-        - Clean Water Act (CWA)
-        - Resource Conservation and Recovery Act (RCRA)\n
-        You can also click on a state to view its counties, and click on a county to view the data.\n
-        Click on the circles within a county to zoom in and locate specific facilities. Hover over the facility’s circle to access its detailed ECHO report.
-        """
 
+#         def starter_top_info():
+#             st.title("How to use")
+
+#             # Define your content as a string
+#             content = """
+#         Zoom in or search to select a county to see county-specific data on violations, inspections, and enforcement actions by the EPA under the:
+#         - Clean Air Act (CAA)
+#         - Clean Water Act (CWA)
+#         - Resource Conservation and Recovery Act (RCRA)\n
+#         You can also click on a state to view its counties, and click on a county to view the data.\n
+#         Click on the circles within a county to zoom in and locate specific facilities. Hover over the facility’s circle to access its detailed ECHO report.
+#         """
+url = "https://raw.githubusercontent.com/ericnost/EDGI_CountyReportCards/refs/heads/main/data/uscounties.csv"
+df = pd.read_csv(url)
 
 def data_sidebar(selected_state, selected_county):
-
     # selected_state = st.selectbox("States", states)
 
     # # url stores the link in which we are getting county names from
@@ -133,30 +133,64 @@ def data_sidebar(selected_state, selected_county):
     # selected_county = st.selectbox(
     #     "County", counties
     # )
+    def get_lat_lng(state_id, county_name):
+        if county_name:
+            county_name = county_name.strip().title()
+
+        # Case 1: Given county_name and state_id
+        if county_name and state_id is not None:
+            # Normalize state_id (ensure it's a string, since state_id is an abbreviation like 'AK')
+            state_id = state_id.strip().upper()
+
+            # Filter based on both state_id and county
+            filtered_df = df[(df['state_id'] == state_id) & (df['county'].str.strip() == county_name)]
+            filtered_df_by_state = df[(df['state_id'] == state_id) & (df['state_name'].str.strip() == county_name)]
+
+            if not filtered_df.empty:
+                lat = filtered_df['lat'].values[0]
+                lng = filtered_df['lng'].values[0]
+                return lat, lng, 10
+            elif not filtered_df_by_state.empty:
+                lat = filtered_df_by_state['lat'].values[0]
+                lng = filtered_df_by_state['lng'].values[0]
+                return lat, lng, 4
+            else:
+                return 40, -95, 4
+        
+    # Get the latitude and longitude of the selected county
+    lat, lng, zoom = get_lat_lng(selected_state, selected_county)
 
     # Create a Folium map that is zoomed-in a bit
-    map = folium.Map(location=[0.0, 0.0], zoom_start=2, use_container_width=True)
+    map = folium.Map(location=[lat, lng], zoom_start=zoom, width="100%", height="600px")
 
     map_html = """
     <style>
-    .main > div {
-                padding-top: 8rem;
-                padding-left: 0rem;
-                padding-right: 0rem;
-            }
-    iframe {
-        width: 100%;
-        min-height: 400px;
-        height: 600px;
-        border: none;
-        position: relative;
-    }
+        /* Center the body content horizontally and vertically */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;  /* Centers horizontally */
+            align-items: center;      /* Centers vertically */
+            background-color: #f0f0f0; /* Optional: background color */
+        }
+
+        /* Container that holds the map */
+        .map-container {
+            width: 1200px !important;  /* Force 1200px width using !important */
+            height: 600px;             /* Fixed height for the map container */
+            padding: 20px;             /* Padding around the map container */
+            box-sizing: border-box;   /* Ensures padding is included in width/height */
+            border: 2px solid #ccc;   /* Optional: border around the map */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow */
+        }
     </style>
     """
     st.markdown(map_html, unsafe_allow_html=True)
 
     # Display the map using st_folium
-    folium_static(map)
+    folium_static(map, width = 1200, height = 600)
 
     # this is for the button
     if 'button' not in st.session_state:
@@ -328,17 +362,44 @@ def data_sidebar(selected_state, selected_county):
                     unsafe_allow_html=True)
         # this is a filler graph
         chart_data_inspections = get_graphs(selected_county, selected_state, "inspections")
-        st.bar_chart(chart_data_inspections, x = 'Year', y = 'inspections')
+
+        inspections_chart = alt.Chart(chart_data_inspections).mark_bar().encode(
+        x='Year:O',  # Treat Year as ordinal (categorical)
+        y='inspections:Q',  # Inspections as quantitative (numerical)
+        tooltip=['Year:O', 'inspections:Q']
+    ).properties(
+        title="Facility Inspections"
+    )
+        st.altair_chart(inspections_chart, use_container_width=True)
+
         st.markdown("<h2>Facility Violations - CAA, CWA, RCRA</h2>",
                     unsafe_allow_html=True)
         # this is a filler graph
         chart_data_violations = get_graphs(selected_county, selected_state, "violations")
-        st.bar_chart(chart_data_violations, x = 'Year', y = 'violations')
+
+        violations_chart = alt.Chart(chart_data_violations).mark_bar().encode(
+        x='Year:O',  # Treat Year as ordinal (categorical)
+        y='violations:Q',  # Inspections as quantitative (numerical)
+        tooltip=['Year:O', 'violations:Q']
+    ).properties(
+        title="Facility Violations"
+    )
+        st.altair_chart(violations_chart, use_container_width=True)
+
         st.markdown("<h2>Facility Enforcements - CAA, CWA, RCRA</h2>",
                     unsafe_allow_html=True)
         # this is a filler graph
         chart_data_enforcements = get_graphs(selected_county, selected_state, "enforcements")
-        st.bar_chart(chart_data_enforcements, x = 'Year', y = 'enforcements')
+
+        enforcements_chart = alt.Chart(chart_data_enforcements).mark_bar().encode(
+        x='Year:O',  # Treat Year as ordinal (categorical)
+        y='enforcements:Q',  # Inspections as quantitative (numerical)
+        tooltip=['Year:O', 'enforcements:Q']
+    ).properties(
+        title="Facility Enforcements"
+    )
+        st.altair_chart(enforcements_chart, use_container_width=True)
+        #st.bar_chart(chart_data_enforcements, x = 'Year', y = 'enforcements')
 
 
     def comparisonTabInfo():
@@ -346,8 +407,8 @@ def data_sidebar(selected_state, selected_county):
         html_content = f"""
         <div style="{gray_rectangle_style}">
             <ul>
-                <li>These two charts show how inspections and violations in this state compare to the national average per 1000 facilities in 2022</li>
-                <li>We use data from 2022 as it was the most recent full year and the ECHO database only reports currently active facilities</li>
+                <li>These two charts show how inspections and violations in this state compare to the national average per 1000 facilities in 2023</li>
+                <li>We use data from 2023 as it was the most recent full year and the ECHO database only reports currently active facilities</li>
                 <li>To enable comparison across locations with a differing number of active facilities, we standardize the comparison to a value per 1000 facilities, proportionally adjusting the data if there are more or less than 1000 facilities in a district or state</li>
             </ul>
         </div>
@@ -358,12 +419,12 @@ def data_sidebar(selected_state, selected_county):
 
 
     def comparisonTabData():
-        st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2022)</h2>",
+        st.markdown("<h2 style='text-align: center'>Inspections per 1000 Facilities (2023)</h2>",
                     unsafe_allow_html=True)
         # this is where graph for CAA Violators
         chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
         st.bar_chart(chart_data)
-        st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2022</h2>",
+        st.markdown("<h2 style='text-align: center'>Violations per 1000 Facilities in 2023</h2>",
                     unsafe_allow_html=True)
         # this is where graph for CWA Violators
         chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])

@@ -5,7 +5,6 @@ from ECHO_modules.geographies import states as state_abbreviations # Import US s
 from searchbox_funcs import bivariate_map, format_county, get_facilities, get_county_boundaries, get_justice_data
 import ssl
 
-
 # Initial data load
 @st.cache_data
 def load_county_list():
@@ -13,8 +12,7 @@ def load_county_list():
     Load data from state_counties_csv on first time running the app
     '''
     # Get list of counties in the format COUNTY, STATE
-    url = "https://raw.githubusercontent.com/edgi-govdata-archiving/"
-    url += "ECHO_modules/packaging/data/state_counties_corrected.csv"
+    url = "https://github.com/edgi-govdata-archiving/ECHO_modules/raw/refs/heads/main/data/state_counties_corrected.csv"
     all_counties = pd.read_csv( url )
     # Data pre-processing - make sure the only states in the list are real states, but comparing with the fips data
     all_counties = all_counties.loc[all_counties["FAC_STATE"].isin(state_abbreviations)]
@@ -47,8 +45,10 @@ def orig_searchbox():
     # Let user select county
     user_selection = st.selectbox(
         'Search for a county',
-        st.session_state["county_list"]
+        st.session_state["county_list"],
+        index=-1
     )
+    
 
     comma_pos = user_selection.find(',')
     # Extract state and county from user's selection
@@ -62,6 +62,7 @@ def orig_searchbox():
         fac = get_facilities(selected_county, selected_state)
         # Display facilities
         fac
+        print("facilities")
 
         st.markdown('### Get County Boundaries')
         county, state = get_county_boundaries(county_name, selected_state)
@@ -86,30 +87,40 @@ def orig_searchbox():
 def create_searchbox():
     ssl._create_default_https_context = ssl._create_unverified_context
 
-    # Create some session state variables to track user interaction
-    if "first_time" not in st.session_state: # If this is the first time loading the script, track that
+    if "first_time" not in st.session_state:  # If this is the first time loading the script, track that
         st.session_state["first_time"] = True 
-    if "county_list" not in st.session_state: # If we haven't loaded county names before, get ready to
+    if "county_list" not in st.session_state:  # If we haven't loaded county names before, get ready to
         st.session_state["county_list"] = None
 
-    ## Only load counties if this is the first run through of the script
+    # Only load counties if this is the first run through of the script
     if st.session_state["first_time"]:
         st.session_state["county_list"] = load_county_list()
         st.session_state["first_time"] = False
 
     # Let user select county
-    user_selection = st.selectbox(
-        'Search for a county',
-        st.session_state["county_list"]
-    )
+    if st.session_state["first_time"]:
+        # For the first time, create an empty selection by defaulting the user_selection to None
+        user_selection = st.selectbox(
+            'Search for a county',
+            st.session_state["county_list"],
+            index=None  # This ensures no default value is selected
+        )
+    else:
+        # After the first time, allow normal selection
+        user_selection = st.selectbox(
+            'Search for a county',
+            st.session_state["county_list"]
+        )
 
-    comma_pos = user_selection.find(',')
-    # Extract state and county from user's selection
-    selected_state = user_selection[comma_pos + 2:]
-    selected_county = user_selection[:comma_pos]
-    county_name = format_county(selected_county)
+    if user_selection:
+        comma_pos = user_selection.find(',')
+        # Extract state and county from user's selection
+        selected_state = user_selection[comma_pos + 2:]
+        selected_county = user_selection[:comma_pos]
 
-    return selected_state, selected_county
+        return selected_state, selected_county
+    else:
+        return "", ""
 
     # handle errors with empty columns
     # try:

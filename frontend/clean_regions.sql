@@ -1,0 +1,16 @@
+delete from active_facilities_previous;
+insert into active_facilities_previous select * from active_facilities;
+delete from active_facilities;
+delete from regions;
+delete from per_fac;
+delete from violations;
+delete from inspections;
+delete from recurring_violations;
+delete from enforcements;
+delete from ghg_emissions;
+delete from non_compliants;
+delete from violations_by_facilities;
+delete from enf_per_fac;
+delete from state_per_1000;
+delete from cd_per_1000;
+delete from county_per_1000;

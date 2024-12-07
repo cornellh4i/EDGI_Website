@@ -1,9 +1,9 @@
-altair==5.1.1
-numpy==1.26.0
-pandas==2.1.1
-streamlit==1.27.1
-matplotlib==3.8.0
-plotly==5.17.0
+altair
+numpy
+pandas
+streamlit
+matplotlib
+plotly
 folium
 streamlit-folium
 plotly.express
@@ -12,4 +12,5 @@ geopandas
 geojson
 seaborn
 requests
-git+https://github.com/edgi-govdata-archiving/ECHO_modules
+ECHO_modules
+GitPython
